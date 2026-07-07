@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Sunday, June 28, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero — House Green feature band ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer — House Green band ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Sunday, June 28, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI previews the GPT-5.6 family — Sol, Terra &amp; Luna — under government-gated access</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-26</div>
+          <p>OpenAI opened a limited preview of three tiered models: Sol (flagship), Terra (balanced), and Luna (fast/cheap). Sol sets a new state of the art on Terminal-Bench 2.1 and is OpenAI's strongest cybersecurity model yet — competitive with rivals on ExploitBench using roughly a third of the tokens. Access is restricted to about 20 government-approved partner organizations via API and Codex during the preview.</p>
+          <div class="why"><b>Why it matters:</b> Frontier capability is now shipping behind national-security access controls, signaling the most capable models will reach developers later and through narrower doors.</div>
+          <a class="ref" href="https://openai.com/index/previewing-gpt-5-6-sol/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Ex-Anthropic team's Mirendil lands $200M seed at ~$1B from a16z, Kleiner Perkins &amp; Nvidia</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published this week (~2026-06-25)</div>
+          <p>Mirendil — founded by veterans of Anthropic, xAI, DeepMind and OpenAI — closed one of AI's largest-ever seed rounds: $200 million at roughly a $1 billion valuation, to build "AI that does AI R&D," autonomous agents that train frontier models outside the big labs. a16z and Kleiner Perkins co-led, with Nvidia participating.</p>
+          <div class="why"><b>Why it matters:</b> Top researchers now command unicorn valuations on day one, accelerating both the talent drain out of incumbent labs and the capital flooding into "AI that builds AI."</div>
+          <a class="ref" href="https://x.com/a16z/status/2069869327411749012" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Baseten raises $1.5B Series F at up to a $13B valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>AI inference platform Baseten raised $1.5 billion led by Altimeter, Conviction and Spark Capital, co-led by Sands and Wellington, across two tranches valuing it at $13B and $11B. Revenue grew roughly 20x year-over-year; the platform now serves more than 1 billion inference calls daily for customers including Cursor, Clay and Abridge.</p>
+          <div class="why"><b>Why it matters:</b> The "picks and shovels" of AI — the plumbing that runs models in production — is now a multibillion-dollar prize, with investors paying frontier-lab prices for infrastructure rather than models.</div>
+          <a class="ref" href="https://www.businesswire.com/news/home/20260622645563/en/Baseten-Raises-$1.5-Billion-to-Power-the-Next-Era-of-AI-Inference" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Microsoft launches seven in-house MAI models to cut its OpenAI dependence</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-02</div>
+          <p>Microsoft AI unveiled a full first-party family spanning reasoning (MAI-Thinking-1, preferred to Sonnet 4.6 in blind evals), coding (MAI-Code-1-Flash, 5B active params, wired into GitHub Copilot/VS Code), image, transcription and voice. The models ship via Microsoft Foundry and also on OpenRouter, Fireworks and Baseten, with developer weight-tuning offered for the first time.</p>
+          <div class="why"><b>Why it matters:</b> Microsoft now has a credible end-to-end model stack of its own, reducing reliance on OpenAI and reshaping the economics of the Azure/Copilot ecosystem.</div>
+          <a class="ref" href="https://microsoft.ai/news/building-a-hillclimbing-machine-launching-seven-new-mai-models/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Google to pay SpaceX $920M/month for AI compute</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-05</div>
+          <p>Google agreed to pay SpaceX about $920 million per month from October 2026 through June 2029 for roughly 110,000 Nvidia GPUs and related gear, calling it "bridge capacity" for its Gemini Enterprise agent platform. It follows SpaceX's late-May deal to lease Anthropic Colossus 1 compute for $1.25 billion per month — both tied to SpaceX's absorption of xAI's data-center capacity.</p>
+          <div class="why"><b>Why it matters:</b> SpaceX is becoming AI's compute landlord, renting scarce GPU capacity to its own rivals — a new and concentrated chokepoint over who can run frontier-scale models.</div>
+          <a class="ref" href="https://techcrunch.com/2026/06/05/google-will-pay-spacex-920m-per-month-for-compute/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic ships Claude Fable 5 and Mythos 5 — then the US government orders them pulled</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-09 · access suspended 2026-06-12</div>
+          <p>Anthropic released Claude Fable 5, its most capable widely-released model, alongside the Mythos 5 frontier tier — always-on adaptive thinking, a 1M-token context window, and 128K output tokens, built for long-horizon agentic work. Three days later, Anthropic said a US export-control directive required it to suspend all access to both models.</p>
+          <div class="why"><b>Why it matters:</b> The first time a frontier US lab launched and was forced to withdraw a model within a week — export controls are now reaching into domestic model availability, not just chips.</div>
+          <a class="ref" href="https://www.anthropic.com/news" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Apple opens its Foundation Models framework to multi-provider, on-device AI</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-09</div>
+          <p>Apple's Foundation Models framework now gives developers a native Swift API to the on-device Apple Intelligence model, with multimodal (image) input, Vision-framework tool calling, and Dynamic Profiles. Critically, it can route to multiple providers — Apple's own models plus cloud models like Claude and Gemini — and apps under 2M downloads get next-gen Private Cloud Compute inference at no API cost.</p>
+          <div class="why"><b>Why it matters:</b> A billion-device install base gets a free, privacy-preserving, provider-agnostic inference layer — turning on-device AI into default app infrastructure rather than a premium add-on.</div>
+          <a class="ref" href="https://developer.apple.com/wwdc26/guides/apple-intelligence/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>EU waters down the AI Act — high-risk rules pushed to December 2027</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-16</div>
+          <p>The European Parliament gave final approval to amendments delaying core obligations of the EU AI Act, slipping the start date for standalone high-risk systems (employment, credit scoring, critical infrastructure, law enforcement) from August 2026 to 2 December 2027 — a 16-month reprieve driven by missing technical standards. "Nudifier" apps were moved to the prohibited category from December 2026.</p>
+          <div class="why"><b>Why it matters:</b> The world's most aggressive AI rulebook just blinked, buying global vendors over a year of breathing room and signaling Brussels is bending toward competitiveness over speed of enforcement.</div>
+          <a class="ref" href="https://www.morganlewis.com/pubs/2026/06/eu-approves-delays-and-other-amendments-to-certain-eu-ai-act-obligations-what-businesses-should-know" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>Bipartisan "Great American AI Act" draft proposes first comprehensive US federal framework</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-04</div>
+          <p>Reps. Jay Obernolte (R-CA) and Lori Trahan (D-MA) released a discussion draft of the Great American Artificial Intelligence Act of 2026, which would establish the first comprehensive federal governance framework for AI. It lands days after President Trump's June 2 executive order pushing AI policy toward national security and voluntary pre-release model sharing with the government.</p>
+          <div class="why"><b>Why it matters:</b> A credible bipartisan federal bill threatens to preempt the patchwork of state AI laws, reshaping the compliance map for every US AI company — and the lobbying fight is now on.</div>
+          <a class="ref" href="https://www.mcdonaldhopkins.com/insights/news/the-great-american-ai-act-what-businesses-need-to-know" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>CVPR 2026 Best Paper: O-Voxel — native, compact structured latents for 3D generation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-05</div>
+          <p>A Tsinghua / Microsoft Research / USTC team introduced O-Voxel, a 3D representation that models arbitrary topology — open, non-manifold, and fully-enclosed surfaces — while capturing physically-based rendering attributes, not just texture color. Generated asset geometry and quality substantially exceed prior methods, and the work took CVPR's top honor.</p>
+          <div class="why"><b>Why it matters:</b> Pushes AI-generated 3D assets toward production-grade quality — the missing piece for scalable content pipelines in games, simulation, and AR/VR.</div>
+          <a class="ref" href="https://cvpr.thecvf.com/Conferences/2026/News/Best_Papers" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">garrytan/gstack</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">YC president Garry Tan's exact Claude Code setup, packaged as 23 opinionated slash-command "skills" that turn the agent into a virtual engineering team — CEO, designer, eng manager, QA, release manager — following a think → plan → build → review → ship loop.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~117k</span>
+          <span class="stat"><span class="lab">🍴</span> ~17.4k</span>
+          <span class="stat"><span class="lab">📈</span> +674 today · cooling from viral peak</span>
+          <span class="stat"><span class="lab">🟢</span> active · 49 contributors</span>
+        </div>
+        <div class="traction">One of 2026's fastest GitHub ramps (10k stars in 48h in March), now flattening into a long tail. Real ecosystem spin-offs (gitagent port, a "K9 Audit" guardrail layer) and many tutorials, but no marquee corporate adopters listed. Red flag: a swelling backlog of ~445 open PRs / ~297 issues puts maintainer responsiveness in question.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=47355173" target="_blank" rel="noopener">↗ HN thread</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/hugohe3/ppt-master" target="_blank" rel="noopener">hugohe3/ppt-master</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An AI "skill" that turns any document (PDF, DOCX, URL, Markdown) into a natively editable PowerPoint — real shapes, text boxes, charts, OOXML animations, plus voice-narrated speaker notes — instead of flat slide images. Runs inside Claude Code, Cursor, VS Code and Codex.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~33.1k</span>
+          <span class="stat"><span class="lab">🍴</span> ~2.8k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · ~+600 in days</span>
+          <span class="stat"><span class="lab">🟢</span> v2.11.0 Jun 20 · daily commits</span>
+        </div>
+        <div class="traction">The standout signal is maintenance velocity: last commit Jun 27, a new minor release roughly every 5–7 days, and a near-clear backlog (~5 issues, 1 PR). Differentiator driving interest is genuinely editable OOXML output with synced MP4 narration vs. competitors that ship images. Caveat: largely a single-maintainer (plus AI) project, and traction is still measured in stars and skill-catalog listings, not named adopters.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/hugohe3/ppt-master" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/hugohe3/ppt-master/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/safishamsi/graphify" target="_blank" rel="noopener">safishamsi/graphify</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A coding-agent skill that turns any folder — code, SQL schemas, docs, PDFs, images, video — into a queryable knowledge graph. One <code>/graphify .</code> command emits an interactive HTML graph, a markdown insights report and JSON, and plugs into Claude Code, Cursor, Codex, Gemini CLI and ~20 other agents.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~73k</span>
+          <span class="stat"><span class="lab">🍴</span> ~7.3k</span>
+          <span class="stat"><span class="lab">📈</span> exploding · ~12k in first 48h</span>
+          <span class="stat"><span class="lab">🟢</span> v0.8.50 Jun 27 · 144 releases</span>
+        </div>
+        <div class="traction">A textbook viral spike, catalyzed by an Andrej Karpathy "LLM knowledge base" post 48h before launch, plus a Y Combinator S26 affiliation. Multiple independent tutorials already exist. Honest red flags: days-to-weeks old, single-maintainer, ~219 open PRs / ~171 issues, a publicly-raised prompt-injection concern over the installed skill.md, and PyPI naming confusion (<code>graphifyy</code> vs the <code>graphify</code> command). Re-check durability in 60–90 days.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/safishamsi/graphify" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/25296" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/anthropics/skills" target="_blank" rel="noopener">anthropics/skills</a></div>
+          <span class="verdict">🛠️ mature &amp; active</span>
+        </div>
+        <div class="desc">Anthropic's official reference repo for Agent Skills — folders of instructions, scripts and resources (SKILL.md format) that Claude loads dynamically to specialize on tasks. Doubles as a Claude Code plugin marketplace and the canonical example set for the open Agent Skills standard.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~156k</span>
+          <span class="stat"><span class="lab">🍴</span> ~18.4k</span>
+          <span class="stat"><span class="lab">📈</span> steady · ~+15k in a month</span>
+          <span class="stat"><span class="lab">🟢</span> last commit Jun 27 · weekly upkeep</span>
+        </div>
+        <div class="traction">Past its Oct 2025 viral launch but still accumulating, with an unusually high fork ratio signaling people copy/template skills rather than just bookmark. First-party Office skills (Excel/PowerPoint/Word/PDF), an open portable standard (agentskills.io), and a real ecosystem of "awesome-claude-skills" lists. Red flag: ~714 open PRs / ~275 issues — Anthropic curates tightly around its own updates while community contributions pile up.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/anthropics/skills" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">↗ Docs</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/browser-use/video-use" target="_blank" rel="noopener">browser-use/video-use</a></div>
+          <span class="verdict">🧪 early/experimental</span>
+        </div>
+        <div class="desc">An open-source Claude Code skill for video editing — drop raw footage in a folder, chat with the agent, get a finished <code>final.mp4</code>. The trick: the LLM never watches the video; it reads a word-level transcript and cuts on word boundaries (filler removal, auto color grade, audio fades, subtitles, overlays).</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~10.5k</span>
+          <span class="stat"><span class="lab">🍴</span> ~1.5k</span>
+          <span class="stat"><span class="lab">📈</span> slowing · spike was Apr launch</span>
+          <span class="stat"><span class="lab">🟢</span> last commit May 15 · ~6 weeks stale</span>
+        </div>
+        <div class="traction">Rode the browser-use brand and a clever "agent edits your video" hook to ~10k stars in two months, with multiple independent how-to write-ups. But the repo itself has gone quiet: last commit May 15, ~33 open PRs vs only 10 issues (contributions outpacing merges), and no published releases. The transcript-as-interface idea is technically credible, but adoption is hobbyist and durability is unproven.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/browser-use/video-use" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/browser-use/video-use/blob/main/README.md" target="_blank" rel="noopener">↗ README</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-06-28 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

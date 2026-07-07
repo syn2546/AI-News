@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Saturday, June 27, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero — House Green feature band ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer — House Green band ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Saturday, June 27, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI previews GPT-5.6 — Sol, Terra &amp; Luna with a 1.5M-token context</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-26</div>
+          <p>OpenAI unveiled a three-model GPT-5.6 family — Sol (flagship, with new "max" and subagent-driven "ultra" modes), Terra (mid-tier at half GPT-5.5's price), and Luna (low-cost) — all with a 1.5M-token context window. It is shipping first as a limited preview to vetted partners, with broad availability promised "in the coming weeks."</p>
+          <div class="why"><b>Why it matters:</b> The first major US frontier release of the summer resets the price/context frontier — and arrives gated behind a new federal pre-release review.</div>
+          <a class="ref" href="https://openai.com/index/previewing-gpt-5-6-sol/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>US government gates a frontier launch for the first time — OpenAI holds GPT-5.6 to "trusted partners"</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-26</div>
+          <p>At Washington's request, OpenAI limited its GPT-5.6 lineup to a small set of vetted partners "whose participation has been shared with the government," under the June 2 executive order on frontier-model security. OpenAI complied but pushed back publicly, calling it a "short-term step" that "should not become the long-term default."</p>
+          <div class="why"><b>Why it matters:</b> The first real case of the US controlling the timing of a top lab's launch — soft pre-clearance that hands Washington new leverage over who gets frontier capability first.</div>
+          <a class="ref" href="https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic ships Claude Fable 5 — first Mythos-class model to the public</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-09</div>
+          <p>Anthropic released Claude Fable 5 (a safety-guardrailed general-release model) alongside Claude Mythos 5 (an unrestricted version limited to vetted cyberdefense and biomedical partners via Project Glasswing). Both share one architecture and price at $10/$50 per million input/output tokens with a 1M-token context; Fable 5 routes a small share of sensitive sessions down to Claude Opus 4.8.</p>
+          <div class="why"><b>Why it matters:</b> Anthropic is productizing the safety tier itself — selling the same weights at two access levels split purely by guardrails, a new template for releasing dual-use capability.</div>
+          <a class="ref" href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Baseten raises $1.5B Series F at a $13B valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-26</div>
+          <p>AI inference-infrastructure provider Baseten — software that runs AI apps in production — closed a $1.5B Series F at a $13B post-money valuation, co-led by Altimeter, Conviction, Spark, Sands and Wellington. It was the single largest venture round of the week and Baseten's fourth raise in 18 months.</p>
+          <div class="why"><b>Why it matters:</b> Capital is stampeding into the "inference layer" — signaling the next margin war in AI is about who runs the models cheaply at scale, not who trains them.</div>
+          <a class="ref" href="https://news.crunchbase.com/venture/biggest-funding-rounds-ai-marketing-robotics-baseten/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>GitHub Copilot becomes a standalone desktop agent platform — app &amp; SDK both GA</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-17</div>
+          <p>The GitHub Copilot desktop app reached general availability on macOS, Windows, and Linux, letting developers run parallel agent sessions across repos — each on its own branch and worktree — with "canvases," scheduled cloud automations, and model choice via MCP. It builds on the Copilot SDK going GA on June 2, which exposes the same agent runtime for embedding in third-party apps.</p>
+          <div class="why"><b>Why it matters:</b> Copilot moves from an in-editor assistant to an orchestration surface — agents as the primary interface, with the IDE demoted to one work surface among several.</div>
+          <a class="ref" href="https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Salesforce to buy Fin (formerly Intercom) for $3.6B</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-15</div>
+          <p>Salesforce signed a definitive deal to acquire AI customer-service company Fin for ~$3.6B, folding its autonomous support agent — which resolves ~76% of tickets end-to-end — and 30,000+ customers into the Agentforce platform, now at $1.2B ARR. The deal is slated to close in Salesforce's fiscal Q4 2027, pending regulatory approval.</p>
+          <div class="why"><b>Why it matters:</b> Incumbent software giants are now buying AI-agent revenue outright rather than building it, accelerating consolidation and squeezing standalone AI customer-service startups.</div>
+          <a class="ref" href="https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Moonshot open-sources Kimi K2.7-Code, undercutting closed coders by up to 12x</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-12</div>
+          <p>Moonshot released Kimi K2.7-Code — a 1T-parameter MoE (32B active) coding model with open weights on Hugging Face under a modified MIT license — reporting double-digit gains over K2.6 and ~30% fewer reasoning tokens. It beats Claude Opus 4.8 on some agentic/MCP benchmarks and runs up to ~12x cheaper per token. Caveat: every published number is Moonshot's own; no independent SWE-bench results yet.</p>
+          <div class="why"><b>Why it matters:</b> Keeps open-weight Chinese models within striking distance of the frontier on coding while resetting the price floor — pressure on closed-model margins.</div>
+          <a class="ref" href="https://the-decoder.com/moonshots-open-model-kimi-k2-7-code-undercuts-gpt-5-5-and-claude-by-up-to-12x-on-price-per-token/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Groq pulls in $650M to rebuild as a "neocloud" after Nvidia's $20B raid</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>AI chip startup Groq confirmed a $650M growth round led by Disruptive and Infinitum, funding a pivot to inference-cloud services (13 data centers, 5M+ developers) and a rebuilt C-suite. The raise follows Nvidia's ~$20B non-exclusive licensing deal late last year — a "not-acqui-hire" that took Groq's founder/CEO, president and key staff plus its LPU IP.</p>
+          <div class="why"><b>Why it matters:</b> Shows how Nvidia neutralizes silicon challengers by licensing IP and poaching talent rather than buying them — and that investors still refund the shell to chase inference capacity.</div>
+          <a class="ref" href="https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>EU Parliament delays high-risk AI Act rules into December 2027</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-16</div>
+          <p>The European Parliament gave final approval to material amendments to the AI Act, pushing the start of obligations for standalone Annex III high-risk systems to December 2027 (a ~16-month delay) and simplifying other compliance requirements. Article 50 transparency obligations still kick in August 2, 2026.</p>
+          <div class="why"><b>Why it matters:</b> Europe blinks on its toughest AI rules amid competitiveness pressure — buying breathing room for enterprises and US labs in the EU, and signaling a softer regulatory posture into 2027.</div>
+          <a class="ref" href="https://www.morganlewis.com/pubs/2026/06/eu-approves-delays-and-other-amendments-to-certain-eu-ai-act-obligations-what-businesses-should-know" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Apple opens Foundation Models free to smaller developers at WWDC 2026</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-09</div>
+          <p>Apple made its Foundation Models — running on Private Cloud Compute — free for developers with under 2M first-time App Store downloads, removing inference cost as a barrier. The framework now takes image input and adds a server-side path to call third-party models like Claude and Gemini through the same Swift API, with the framework itself going open source this summer.</p>
+          <div class="why"><b>Why it matters:</b> Apple turns private-cloud AI into zero-cost default infrastructure for the long tail of app developers — and routes rival models through its own Swift API as the broker.</div>
+          <a class="ref" href="https://www.macrumors.com/2026/06/09/apple-outlines-major-ai-and-developer-tool-updates/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/xbtlin/ai-berkshire" target="_blank" rel="noopener">xbtlin/ai-berkshire</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A Claude Code plugin that systematizes value-investing methods (Buffett, Munger, Duan Yongping, Li Lu) into 16 "skills," each running 4 AI agents in parallel that independently research and challenge each other's conclusions — adversarial, anti-hallucination by design.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~3.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 483</span>
+          <span class="stat"><span class="lab">📈</span> rapid · 1,274 today</span>
+          <span class="stat"><span class="lab">🟢</span> last commit Jun 26 · daily velocity</span>
+        </div>
+        <div class="traction">Ships real artifacts — generated research reports (e.g. a Microsoft deep-dive dated 2026-06-23) and self-reported, unaudited returns. Caveats: ~2 months old, effectively single-maintainer with an hourly bot padding the ~1,141-commit graph, and no named third-party adopters yet. Real momentum on an early foundation.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/xbtlin/ai-berkshire" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/xbtlin/ai-berkshire/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/opendatalab/MinerU" target="_blank" rel="noopener">opendatalab/MinerU</a></div>
+          <span class="verdict">🛠️ mature &amp; active</span>
+        </div>
+        <div class="desc">Document-parsing engine that converts PDFs, Office docs, and images into LLM-ready Markdown/JSON for RAG and agentic pipelines, using a dual VLM + OCR engine across 109 languages.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 70.6k</span>
+          <span class="stat"><span class="lab">🍴</span> 5.9k</span>
+          <span class="stat"><span class="lab">📈</span> steady-to-strong</span>
+          <span class="stat"><span class="lab">🟢</span> v3.4.0 Jun 18 · monthly cadence</span>
+        </div>
+        <div class="traction">SOTA 95.69 on OmniDocBench V1.6 (MinerU2.5-Pro); only ~9 open issues against 70k stars is aggressive triage. The April 2026 relicense to an Apache-2.0-based license unblocked commercial use; integrations with LangChain, LlamaIndex, and Dify plus ~154 dependents. Firing on all cylinders without a viral moment.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/opendatalab/MinerU" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/opendatalab/MinerU/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/DeusData/codebase-memory-mcp" target="_blank" rel="noopener">DeusData/codebase-memory-mcp</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A high-performance MCP server that indexes any codebase into a persistent knowledge graph, letting coding agents answer structural questions (call chains, dead code, cross-service routes) with ~99% fewer tokens. Ships as a single static C binary, zero dependencies, 158 languages.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 15.9k</span>
+          <span class="stat"><span class="lab">🍴</span> 1.2k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · #1 trending Jun 17–18</span>
+          <span class="stat"><span class="lab">🟢</span> v0.8.1 ~Jun 12 · high tempo</span>
+        </div>
+        <div class="traction">A preprint benchmarks it across 31 repos: 83% answer quality, ~10x fewer tokens, 2.1x fewer tool calls; indexes the Linux kernel in ~3 min. SLSA L3 provenance + Sigstore signatures. Plug-and-play across 11 agents (Claude Code, Codex CLI, Gemini CLI). One yellow flag: 103 issues / 39 PRs on a single-maintainer project.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/DeusData/codebase-memory-mcp" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/23635" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/jamiepine/voicebox" target="_blank" rel="noopener">jamiepine/voicebox</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">Open-source, local-first AI voice studio from Spacedrive's Jamie Pine — clone a voice from seconds of audio, generate speech in 23 languages across 7 TTS engines, and dictate into any app via a global hotkey. Pitched as a privacy-first ElevenLabs/WisprFlow alternative.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 34.6k</span>
+          <span class="stat"><span class="lab">🍴</span> 4.2k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · ~+12k in two months</span>
+          <span class="stat"><span class="lab">🟢</span> last commit Jun 26 · v0.5.0 Apr 25</span>
+        </div>
+        <div class="traction">Fully local inference (MLX/CUDA/ROCm), MCP integration so agents can speak in a cloned voice, on-device Qwen3 transcript cleanup. Candid red flags: a June 26 commit adds a "$VOICEBOX token" section (governance yellow flag), "3-second clone, no consent lock" is drawing ethics coverage, and a 399-issue / 88-PR backlog is growing fast.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/jamiepine/voicebox" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://www.techtimes.com/articles/316850/20260519/voicebox-clones-any-voice-3-seconds-audio-runs-locally-free-has-no-consent-lock.htm" target="_blank" rel="noopener">↗ Coverage</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/topoteretes/cognee" target="_blank" rel="noopener">topoteretes/cognee</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">Open-source AI memory platform for agents — ingests data in any format and builds a self-hosted knowledge graph (vector + graph reasoning) via its "Extract → Cognify → Load" pipeline, giving agents persistent long-term memory beyond plain RAG.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 23.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.2k</span>
+          <span class="stat"><span class="lab">📈</span> steady · ~doubled YoY</span>
+          <span class="stat"><span class="lab">🟢</span> v1.2.2 Jun 26 · 121 releases</span>
+        </div>
+        <div class="traction">Backed by a $7.5M seed; founder published academic work behind the ontology approach. Broad distribution — official MCP server, Dify plugin, Memgraph integration, preview Slack/Drive connectors, ~122 dependents, and a Show HN launch. Anchors its own awesome-ai-memory list. Only caution: a 171-deep open-PR queue.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/topoteretes/cognee" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=44169594" target="_blank" rel="noopener">↗ Show HN</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-06-27 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

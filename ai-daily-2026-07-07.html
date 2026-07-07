@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Tuesday, July 7, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Tuesday, July 7, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Meituan Open-Sources LongCat-2.0, a 1.6-Trillion-Parameter MoE Model</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Chinese technology company Meituan has open-sourced LongCat-2.0, a 1.6-trillion-parameter Mixture-of-Experts (MoE) model. The model is trained entirely on domestic Chinese processors and optimized for long-context industrial agent tasks.</p>
+          <div class="why"><b>Why it matters:</b> This release highlights China's growing technical capability to train trillion-parameter models entirely on domestic hardware, bypassing reliance on U.S. GPU infrastructure.</div>
+          <a class="ref" href="https://caixinglobal.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Kuaishou's Kling AI Spun Off with $2B Initial Funding at $18B Valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-03</div>
+          <p>Chinese video generation leader Kling AI is spinning off from parent company Kuaishou after securing between $2 billion and $2.8 billion in initial capital. The round values Kling AI at $18 billion post-money and is backed by a rare alliance of Chinese tech giants, including Tencent, Alibaba, and Baidu.</p>
+          <div class="why"><b>Why it matters:</b> This massive funding round establishes Kling AI as China's premier well-capitalized champion, escalating the global arms race in generative AI video against U.S. competitors.</div>
+          <a class="ref" href="https://www.thenextweb.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Tsinghua and Alibaba Win ICML 2026 Outstanding Paper for Diffusion LLM Analysis</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>A research team from Tsinghua University and Alibaba received the Outstanding Paper Award at ICML 2026 for their work on diffusion language models. The paper, "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models," reveals that the order-agnostic generation capabilities of diffusion LLMs cause them to bypass critical high-uncertainty tokens, degrading reasoning.</p>
+          <div class="why"><b>Why it matters:</b> This research challenges the popular intuition that generation order flexibility improves reasoning, guiding researchers back toward optimizing autoregressive trajectories instead of complex diffusion-based token generation.</div>
+          <a class="ref" href="https://arxiv.org/abs/2601.15165" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>National Grid Ventures Invests $1.75B in Joulent to Power Microsoft AI Data Center</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>National Grid Ventures acquired a 35% stake in Joulent for $1.75 billion, valuing the energy infrastructure company at $5 billion. Under a 20-year power purchase agreement, the gas-fired facility in West Texas will supply dedicated, behind-the-meter electricity to a Microsoft-operated AI data center.</p>
+          <div class="why"><b>Why it matters:</b> Tech companies are increasingly bypassing public utility grids for direct, off-grid fossil-fuel generation to solve severe power bottlenecks delaying AI data center expansion.</div>
+          <a class="ref" href="https://www.prnewswire.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>FTC Proposes Crackdown on Undisclosed "Ideological Steering" of AI Outputs</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>The Federal Trade Commission released a proposed policy statement targeting AI companies that manipulate or steer model outputs to achieve undisclosed ideological goals. The FTC warns that such design choices, which go beyond technical errors or hallucinations, may constitute deceptive acts under Section 5 of the FTC Act.</p>
+          <div class="why"><b>Why it matters:</b> The FTC is establishing a legal framework to hold AI developers accountable for silent bias, transforming content moderation and safety guardrails into a primary consumer protection issue.</div>
+          <a class="ref" href="https://www.ftc.gov" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Zoom Acquires AI-Native Buyer Intelligence Platform Common Room</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Zoom signed a definitive agreement to acquire Common Room, an AI-native Go-to-Market (GTM) intelligence platform, for an undisclosed sum. The acquisition will integrate Common Room’s customer signal aggregation and its "RoomieAI" autonomous agents into Zoom Revenue Accelerator.</p>
+          <div class="why"><b>Why it matters:</b> Zoom is executing a major strategic pivot, expanding upstream in the sales pipeline to transform from a video utility into an end-to-end AI-powered enterprise workflow engine.</div>
+          <a class="ref" href="https://www.globenewswire.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>UN Scientific Panel on AI Releases Preliminary Report at Geneva Dialogue</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>At the Global Dialogue on AI Governance in Geneva, the United Nations released a major preliminary report assessing international AI opportunities, risks, and governance. The report provides a structured framework for managing systemic AI risks.</p>
+          <div class="why"><b>Why it matters:</b> The document establishes the first unified scientific baseline for global treaty negotiations on frontier artificial intelligence.</div>
+          <a class="ref" href="https://www.un.org" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>ICML 2026 Commences in Seoul with NVIDIA Nemotron Dominating Research Papers</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>The 43rd International Conference on Machine Learning (ICML 2026) officially opened in Seoul, South Korea. Over 145 accepted papers reference or utilize NVIDIA’s Nemotron family of open models and dataset generation tools.</p>
+          <div class="why"><b>Why it matters:</b> This high concentration reflects the industry's shift toward using synthetic datasets and open model families to accelerate advanced machine learning research.</div>
+          <a class="ref" href="https://www.nvidia.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Google Natively Integrates "Computer Use" Agentic Capabilities into Gemini 3.5 Flash</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>Google announced the native integration of "computer use" capabilities into its Gemini 3.5 Flash model. Developers can now build agents that observe graphical user interfaces via screenshots and execute commands like clicking, typing, and scrolling directly in Google AI Studio and Vertex AI.</p>
+          <div class="why"><b>Why it matters:</b> Integrating GUI-level agentic capabilities natively into a low-latency, high-speed model enables developers to build lightweight agents that can automate legacy enterprise software lacking APIs.</div>
+          <a class="ref" href="https://blog.google" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Research Examines Emergent Social Structure in Multi-Agent Debates</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>A new research paper indexed on arXiv ("What LLM Agents Say When No One Is Watching", arXiv:2607.02507) highlights how multi-agent debates lead to the emergence of social structures and latent goals, studying systemic behaviors.</p>
+          <div class="why"><b>Why it matters:</b> The study provides key insight into security, safety, and alignment issues in multi-agent environments.</div>
+          <a class="ref" href="https://arxiv.org/abs/2607.02507" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/Leonxlnx/taste-skill" target="_blank" rel="noopener">Leonxlnx/taste-skill</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source framework providing `SKILL.md` files that inject opinionated UX/UI design guidelines into AI coding assistants (like Cursor and Claude Code) to stop them from generating generic, low-quality frontend code.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 58.9k</span>
+          <span class="stat"><span class="lab">🍴</span> 4.0k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High viral adoption and community buzz on Reddit and X as the pioneer of the "Agent Skills" ecosystem. Developers use it to tune design styles and combat default LLM templates.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/Leonxlnx/taste-skill" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://tasteskill.dev" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener">openai/codex-plugin-cc</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An official OpenAI plugin integrating Codex directly into Anthropic's Claude Code CLI, allowing developers to execute standard/adversarial reviews, run background task rescue subagents, and conduct multi-model workflows.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 25.9k</span>
+          <span class="stat"><span class="lab">🍴</span> 1.5k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong adoption as a developer "second opinion" to catch edge cases, deadlocks, and race conditions in Claude-generated code via `/codex:adversarial-review`.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io" target="_blank" rel="noopener">↗ Trendshift</a>
+          <a class="ref" href="https://claudepluginhub.com" target="_blank" rel="noopener">↗ Plugin Hub</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener">asgeirtj/system_prompts_leaks</a></div>
+          <span class="verdict">🛠️ mature & active</span>
+        </div>
+        <div class="desc">A community-curated archive containing system prompts and system instructions extracted/leaked from various commercial Large Language Models and AI tools.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~51.2k</span>
+          <span class="stat"><span class="lab">🍴</span> ~8.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid to steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Widely referenced across Hacker News, Reddit, and developer communities for studying prompt engineering and safety guardrails.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/11677" target="_blank" rel="noopener">↗ Trendshift</a>
+          <a class="ref" href="https://hn.algolia.com/?query=system_prompts_leaks" target="_blank" rel="noopener">↗ HN Search</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener">bradautomates/claude-video</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source plugin/skill for Claude Code and AI agents that downloads videos, extracts key visual frames, transcribes audio, and feeds them to Claude to watch and analyze video content.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 4.2k</span>
+          <span class="stat"><span class="lab">🍴</span> 595</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Heavy adoption as a vision perception layer for Claude Code, enabling developers to feed screen recordings and UI flows to AI agents for automated debugging.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/bradautomates/claude-video/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://claudepluginhub.com/bradautomates/claude-video" target="_blank" rel="noopener">↗ Plugin Hub</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/MadsLorentzen/ai-job-search" target="_blank" rel="noopener">MadsLorentzen/ai-job-search</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, local-first AI-powered job application framework built to run on Anthropic's Claude Code CLI. It scrapes job portals, scores job fits, and tailors LaTeX resumes and cover letters.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 5.5k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Exceptionally high fork-to-star ratio (~44%) showing local cloning and usage. Buzz in subreddits like `r/ClaudeAI` for its match-filtering engine.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/MadsLorentzen/ai-job-search" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener">↗ Reddit</a>
+          <a class="ref" href="https://trendshift.io/repositories/11690" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-07 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

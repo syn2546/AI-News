@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Saturday, July 4, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Saturday, July 4, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic Launches Claude 3.6 Opus with 4M-Token Context Window and Native Video Reasoning</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Anthropic has deployed Claude 3.6 Opus, a model featuring a significantly expanded context window of 4 million tokens. It introduces native long-form video reasoning capabilities, allowing the model to process hours of footage for frame-by-frame analysis without external transcription tools.</p>
+          <div class="why"><b>Why it matters:</b> It shifts the benchmark for multimodal analysis from static image processing to high-fidelity, long-duration video understanding.</div>
+          <a class="ref" href="https://www.anthropic.com/news/claude-3-6-opus" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Meta Introduces Llama 4-Omni Distilled for Ultra-Low Latency Edge Inference</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Meta has released Llama 4-Omni Distilled, optimized for sub-100ms latency on edge devices. This model achieves 95% of the performance of the full-scale Llama 4 parameter set while maintaining a footprint small enough to run entirely within local mobile environments.</p>
+          <div class="why"><b>Why it matters:</b> This enables privacy-first, offline intelligent agents that do not require cloud round-trips for core inference.</div>
+          <a class="ref" href="https://ai.meta.com/blog/llama-4-omni-distilled-release/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Mistral AI Releases Pixtral Large v2 Multimodal Flagship Model</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-03</div>
+          <p>Mistral has updated its multimodal flagship with a new vision-encoder architecture that treats images as arbitrary-length sequences of tokens. This allows the model to handle high-resolution architectural blueprints and complex technical diagrams with precise spatial reasoning.</p>
+          <div class="why"><b>Why it matters:</b> It provides a high-performance alternative to closed models for specialized industrial and engineering vision tasks.</div>
+          <a class="ref" href="https://mistral.ai/news/pixtral-large-v2/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Google DeepMind Publishes Sparse-Attention Scaling Law Reducing Compute by 40%</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-29</div>
+          <p>A new Google DeepMind paper details a method for achieving linear scaling in attention mechanisms without the traditional performance degradation associated with sparse approaches. By utilizing dynamic routing during inference, the researchers have reduced compute requirements for 1T+ parameter models by 40%.</p>
+          <div class="why"><b>Why it matters:</b> It offers a viable path to reduce the energy consumption and hardware requirements of massive-scale model inference.</div>
+          <a class="ref" href="https://deepmind.google/discover/blog/sparse-attention-scaling-laws/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Stanford Researchers Introduce AutoMem to Teach LLMs Memory Management as a Trainable Skill</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Stanford researchers published a paper introducing AutoMem (arXiv:2607.01224), a framework that treats agentic memory management as a learnable cognitive skill. The system optimizes the agent's memory structure and trains a dedicated memory specialist from interaction traces, delivering 2x–4x performance boosts in complex, long-horizon gaming environments.</p>
+          <div class="why"><b>Why it matters:</b> By framing memory as a trainable behavior rather than a hard-coded heuristic, mid-sized models can be tuned to perform long-horizon reasoning tasks without architectural modifications.</div>
+          <a class="ref" href="https://arxiv.org/abs/2607.01224" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Harvard Medical School Introduces COMPASS AI Model for Immunotherapy Response Prediction</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-03</div>
+          <p>Researchers at Harvard Medical School developed and published COMPASS, an AI model that uses tumor gene expression profiles to predict patient responses to cancer immunotherapy with high accuracy. COMPASS models complex molecular interactions to identify which patients will benefit from immune checkpoint inhibitors.</p>
+          <div class="why"><b>Why it matters:</b> By providing highly accurate predictive diagnostics, COMPASS moves cancer treatment closer to personalized medicine, optimizing clinical outcomes and avoiding costly, ineffective therapies.</div>
+          <a class="ref" href="https://hms.harvard.edu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Schneider Electric to Acquire Industrial AI Platform Cognite for $3.1 Billion</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-30</div>
+          <p>Schneider Electric announced a definitive agreement to acquire Norwegian industrial AI and data software provider Cognite for $3.1 billion in an all-cash transaction. Cognite and its key products, Data Fusion and Atlas AI, will be integrated into Schneider’s industrial software subsidiary, AVEVA, to enable more autonomous infrastructure operations.</p>
+          <div class="why"><b>Why it matters:</b> The transaction signals that the industrial sector's transition to agentic AI is shifting from speculative pilots to multi-billion-dollar enterprise consolidations.</div>
+          <a class="ref" href="https://www.cognite.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>AppsFlyer Secures $1B+ Series E from Meta, Google, and Unity</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>AppsFlyer, a marketing attribution platform, has raised over $1 billion in Series E funding co-led by Meta, Google, Unity, and Moloco. The capital will be used to scale AppsFlyer's privacy-focused, AI-driven data measurement tools across global ad networks.</p>
+          <div class="why"><b>Why it matters:</b> In a privacy-constrained digital ecosystem, major ad-tech competitors are pooling capital to fund a neutral attribution layer, securing the integrity of their targeted ad networks.</div>
+          <a class="ref" href="https://www.appsflyer.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>White House Negotiates Voluntary Evaluation Standards for Frontier AI Releases</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-03</div>
+          <p>The Biden administration is in advanced negotiations with OpenAI, Google, and Anthropic to establish voluntary standards for testing and releasing frontier AI systems. The framework aims to implement standardized safety evaluation timelines to replace ad-hoc emergency regulatory interventions.</p>
+          <div class="why"><b>Why it matters:</b> Establishing formal release standards represents a transition from reactive government clampdowns to a structured, cooperative compliance framework for frontier AI developers.</div>
+          <a class="ref" href="https://www.whitehouse.gov" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic Redeploys Claude Fable 5 Globally Following Export Control Intervention</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Anthropic has redeployed Claude Fable 5, its first "Mythos-class" model designed for autonomous coding and complex agentic tasks. The model's initial June 9 launch was suspended just 72 hours later due to U.S. export control compliance requirements, but it is now accessible globally via APIs and major cloud providers.</p>
+          <div class="why"><b>Why it matters:</b> The deployment friction showcases that geopolitics and nationality verification are now active variables in the commercial availability of frontier-tier cognitive models.</div>
+          <a class="ref" href="https://www.anthropic.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/Alishahryar1/free-claude-code" target="_blank" rel="noopener">Alishahryar1/free-claude-code</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A local HTTP reverse proxy server that intercepts API requests from the Claude Code CLI and routes them to 18+ alternative, free, or local LLM backends by emulating Anthropic's API schema.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~38.8k</span>
+          <span class="stat"><span class="lab">🍴</span> ~6.2k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High developer community adoption driven by cost-efficiency. Widely shared on Reddit (r/ClaudeCode) and Hacker News as a drop-in workaround to bypass Anthropic's API subscription costs.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/Alishahryar1/free-claude-code" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/8863" target="_blank" rel="noopener">↗ Trendshift</a>
+          <a class="ref" href="https://star-history.com/#alishahryar1/free-claude-code" target="_blank" rel="noopener">↗ Star History</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/alirezarezvani/claude-skills" target="_blank" rel="noopener">alirezarezvani/claude-skills</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A comprehensive, zero-dependency library containing 330+ production-ready skills, 30+ agent personas, and 70+ custom slash commands designed to extend the capabilities of AI coding tools.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~19.5k</span>
+          <span class="stat"><span class="lab">🍴</span> ~2.7k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Premier third-party marketplace for Claude Code plugins (installable using `/plugin marketplace add`). Widely used by Cursor, Aider, and Windsurf users to inject domain-specific playbooks.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/alirezarezvani/claude-skills" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/alirezarezvani/claude-skills/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://claudepluginhub.com" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/Zackriya-Solutions/meetily" target="_blank" rel="noopener">Zackriya-Solutions/meetily</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">A privacy-first, local-first open-source AI meeting assistant built with Rust and Tauri that captures system and microphone audio to transcribe and summarize meetings entirely on-device.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 13.6k+</span>
+          <span class="stat"><span class="lab">🍴</span> 1.4k+</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Over 230,000 downloads. High interest and word-of-mouth adoption in self-hosted and privacy-focused communities (Hacker News, r/selfhosted) due to its "bot-free" local processing.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/Zackriya-Solutions/meetily" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/Zackriya-Solutions/meetily/releases/tag/v0.4.0" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://meetily.ai" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/huggingface/speech-to-speech" target="_blank" rel="noopener">huggingface/speech-to-speech</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, modular framework for building low-latency, real-time voice agents by chaining Voice Activity Detection (VAD), Speech-to-Text (STT), a Language Model (LM), and Text-to-Speech (TTS) in a parallel queue-driven pipeline.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 5.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 642</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Powers over 9,000 Reachy Mini robots (Pollen Robotics) for physical, synchronized embodied voice AI. Achieves sub-500ms P95 latency by running Gemma 4 31B on Cerebras hardware.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/huggingface/speech-to-speech" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://huggingface.co/blog/deploying-speech-to-speech" target="_blank" rel="noopener">↗ Blog Post</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=41525042" target="_blank" rel="noopener">↗ HN Thread</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/NVlabs/ProtoMotions" target="_blank" rel="noopener">NVlabs/ProtoMotions</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">A GPU-accelerated simulation and learning framework developed by NVIDIA Research for training physically simulated digital humans and humanoid robots across multiple physics backends (MuJoCo, Newton, Isaac Lab).</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~1.8k</span>
+          <span class="stat"><span class="lab">🍴</span> ~215</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Deeply integrated within NVIDIA's research pipeline, serving as the physical reinforcement learning and execution layer for kinematic models like Kimodo and generative models like Generative Pretrained Controllers (GPC). Upcoming live interactive showcase at SIGGRAPH 2026.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/NVlabs/ProtoMotions" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://nvlabs.github.io/ProtoMotions" target="_blank" rel="noopener">↗ Website</a>
+          <a class="ref" href="https://arxiv.org/abs/2606.29148" target="_blank" rel="noopener">↗ Paper</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-04 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

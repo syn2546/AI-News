@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Friday, June 26, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero — House Green feature band ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer — House Green band ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Friday, June 26, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>SpaceX buys Cursor-maker Anysphere for $60B — largest venture-backed acquisition ever</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-16</div>
+          <p>SpaceX agreed to acquire Anysphere, maker of AI coding tool Cursor, in a $60B all-stock deal — the biggest acquisition of a venture-backed startup on record. The move hands xAI (merged with SpaceX in February) its first major foothold in AI dev tools; Cursor hit $2B in annual recurring revenue by February. Close expected Q3 2026, pending regulatory approval.</p>
+          <div class="why"><b>Why it matters:</b> Pulls the fastest-growing software company ever into Musk's orbit, instantly making xAI a top-tier player in AI coding against GitHub Copilot and Anthropic.</div>
+          <a class="ref" href="https://qz.com/spacex-buying-cursor-anysphere-60-billion-deal-061626" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI ships GPT-5.5-Cyber behind a "Trusted Access" identity gate</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>OpenAI released GPT-5.5-Cyber, its most capable defensive-security model, scoring a record 85.6% on CyberGym (vs 81.8% for base GPT-5.5) plus large gains on ExploitGym and SEC-bench Pro. It is not generally available: distribution runs only through "Trusted Access for Cyber," an identity-verified framework for vetted defenders, with national partners including ENISA, Canada, Japan, and South Korea.</p>
+          <div class="why"><b>Why it matters:</b> The first frontier model whose access is gated by verified identity rather than price — a template for shipping dual-use capability without open release.</div>
+          <a class="ref" href="https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Qualcomm to acquire AI-software startup Modular for ~$3.9B</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>Qualcomm agreed to buy Modular — maker of the Mojo language and MAX platform that runs AI models efficiently across Nvidia, AMD, and Intel chips — issuing up to 19.2M shares (~$3.9B). All ~150 employees, including founders Chris Lattner and Tim Davis, join Qualcomm. Targets data-center and edge AI; expected to close H2 2026.</p>
+          <div class="why"><b>Why it matters:</b> Buys Qualcomm a hardware-agnostic software layer to crack data-center AI — a direct challenge to Nvidia's CUDA moat.</div>
+          <a class="ref" href="https://investor.qualcomm.com/news-events/press-releases/news-details/2026/Qualcomm-to-Acquire-Modular/default.aspx" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Google DeepMind open-weights DiffusionGemma — a diffusion LLM, not autoregressive</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-10</div>
+          <p>DiffusionGemma is an Apache-2.0, 26B-class MoE (~3.8B active) that generates text by denoising 256-token blocks in parallel instead of one token at a time, hitting 1,000+ tokens/sec on a single H100 — up to 4x faster than comparable autoregressive models. It quantizes to ~18GB VRAM so it runs locally; Google is candid that raw quality trails standard Gemma 4.</p>
+          <div class="why"><b>Why it matters:</b> The first credible open-weights text-diffusion model puts a non-autoregressive architecture in every developer's hands, reopening a sidelined paradigm.</div>
+          <a class="ref" href="https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>General Intuition raises $320M Series A at $2.3B — Bezos and Schmidt back it</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-25</div>
+          <p>Frontier lab General Intuition closed a $320M Series A led by Khosla Ventures, with General Catalyst, Eric Schmidt's Hillspire, and Jeff Bezos, valuing it at $2.3B. It builds "action" and "world" foundation models — trained on billions of labeled gameplay clips from its Medal platform (~17M monthly users) — to teach agents to operate in digital and physical spaces.</p>
+          <div class="why"><b>Why it matters:</b> A $2.3B price on a Series A signals capital flooding into agentic "world model" labs — the next contested frontier after chatbots.</div>
+          <a class="ref" href="https://theaiinsider.tech/2026/06/25/spatial-ai-training-startup-general-intuition-valued-at-2-3b-after-320m-series-a-funding-round/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>GitHub Copilot CLI's redesigned terminal interface hits GA</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-23</div>
+          <p>The Copilot CLI terminal interface previewed at Microsoft Build 2026 is now generally available, adding tabbed in-terminal browsing of issues/PRs/gists, guided in-session setup of MCP servers, skills and plugins, and accessibility upgrades. It lands alongside the broader June wave: Copilot SDK GA and the Copilot desktop app GA.</p>
+          <div class="why"><b>Why it matters:</b> Copilot is consolidating into an agentic surface that lives in the terminal and is embeddable via SDK — pushing agent-in-the-loop toward default for mainstream developers.</div>
+          <a class="ref" href="https://github.blog/changelog/2026-06-23-copilot-cli-new-terminal-interface-is-generally-available/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>Great American AI Act draft would freeze state AI laws for 3 years</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-04</div>
+          <p>Reps. Jay Obernolte (R-CA) and Lori Trahan (D-MA) released a bipartisan discussion draft of the Great American AI Act — the first attempt at a comprehensive federal AI framework, covering frontier-model governance, workforce, and cybersecurity. Critically, it would preempt state AI laws for three years, moving the federal-vs-state fight into legislation.</p>
+          <div class="why"><b>Why it matters:</b> If enacted, it centralizes AI rulemaking in Washington and removes the patchwork of state compliance risk — a major power shift toward federal control and industry.</div>
+          <a class="ref" href="https://www.mcdonaldhopkins.com/insights/news/the-great-american-ai-act-what-businesses-need-to-know" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Meta's SAM 3D named a CVPR 2026 Best Paper</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published this week (CVPR 2026 awards)</div>
+          <p>SAM 3D ("3Dfy Anything in Images"), from Meta Superintelligence Labs, took one of two CVPR 2026 top honors. It reconstructs grounded 3D geometry, texture, and layout from a single image and wins human-preference tests at least 5:1 over prior work on real-world objects and scenes.</p>
+          <div class="why"><b>Why it matters:</b> Single-image-to-3D at SAM-level generality collapses a slow multi-view capture pipeline into one shot — the upstream unlock for robotics, AR, and 3D tooling.</div>
+          <a class="ref" href="https://arxiv.org/abs/2511.16624" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Taktile lands $110M Series C led by Goldman Sachs to automate banking decisions</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>Agentic decisioning startup Taktile raised $110M led by Growth Equity at Goldman Sachs Alternatives, with Index Ventures, Tiger Global, Balderton, and Y Combinator. Its no-code platform builds AI agents for loan underwriting, fraud detection, and identity checks, already powering Mercury, Monzo, and Pleo; total raised now $184M.</p>
+          <div class="why"><b>Why it matters:</b> A bank-led round into AI that makes high-stakes lending decisions is a vote that agentic AI is production-ready in regulated finance.</div>
+          <a class="ref" href="https://www.businesswire.com/news/home/20260624713959/en/Taktile-Secures-$110M-in-Goldman-Sachs-led-Series-C-to-Power-AI-Transformation-in-Financial-Institutions" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Microsoft AI launches seven in-house MAI models</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-02 (updated 2026-06-08)</div>
+          <p>Microsoft AI shipped seven first-party models via its "Frontier Tuning" approach: MAI-Thinking-1 (reasoning, preferred over Sonnet 4.6 in blind tests), MAI-Code-1-Flash (5B active, already in GitHub Copilot and VS Code), MAI-Image-2.5, MAI-Transcribe-1.5, and the MAI-Voice-2 line. It claims domain tuning that matches GPT-5.4 on Excel tasks at up to 10x lower cost.</p>
+          <div class="why"><b>Why it matters:</b> Microsoft is visibly reducing dependence on OpenAI for its own stack — the frontier's biggest distributor now wants to own the models inside Copilot.</div>
+          <a class="ref" href="https://microsoft.ai/news/building-a-hillclimbing-machine-launching-seven-new-mai-models/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/ZhuLinsen/daily_stock_analysis" target="_blank" rel="noopener">ZhuLinsen/daily_stock_analysis</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">LLM-driven multi-market stock analysis (A-shares, HK, US, JP, KR, TW) that generates daily AI decision reports and auto-pushes to Telegram/Discord/Slack/WeChat — with a zero-cost mode on GitHub Actions.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~49.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~43.6k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · #2 trending Jun 23</span>
+          <span class="stat"><span class="lab">🟢</span> daily commits · weekly releases</span>
+        </div>
+        <div class="traction">The ~88% fork:star ratio isn't 43k contributors — it's deployment forks: users fork to run their own free daily analysis on GitHub Actions. Read correctly, a strong real-usage signal. Latest v3.23.0 (Jun 20); last commit Jun 25.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/ZhuLinsen/daily_stock_analysis" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/18527" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">Panniantong/Agent-Reach</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A Python capability layer giving AI coding agents (Claude Code, Cursor, Windsurf, Codex) read + search access to 13–16 platforms — X, Reddit, YouTube, GitHub, Bilibili — by routing to upstream tools, "zero API fees."</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 41.5k</span>
+          <span class="stat"><span class="lab">🍴</span> 3.3k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · ~2x in weeks</span>
+          <span class="stat"><span class="lab">🟢</span> last commit Jun 23 · v1.5.0</span>
+        </div>
+        <div class="traction">Rides a concrete pain point — X/Reddit API price hikes pricing out indie devs. One-line install registers a SKILL.md across major agent IDEs. Caveats: solo founder (bus-factor of one), a 58-deep open-PR pile, no named enterprise adopters yet.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://andrew.ooo/posts/agent-reach-ai-agent-internet-cli-review/" target="_blank" rel="noopener">↗ Review</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/calesthio/OpenMontage" target="_blank" rel="noopener">calesthio/OpenMontage</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">Open-source agentic video-production system that turns an AI coding assistant into a full video studio — 12 pipelines, 52 tools, 500+ skills spanning script research, character animation, and real-footage cutting from open archives.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~22.4k</span>
+          <span class="stat"><span class="lab">🍴</span> ~2.5k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · #1 trending, ~3k/day</span>
+          <span class="stat"><span class="lab">🟢</span> last commit Jun 25</span>
+        </div>
+        <div class="traction">Integrates 14 video-gen providers (Kling, Runway Gen-4, Veo 3, HeyGen) plus free stock/archive sources. Red flags: only ~128 commits, no tagged releases, AGPLv3, "nights and weekends" single maintainer, and a 72-PR review backlog. Pure momentum, unproven durability.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/calesthio/OpenMontage" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=48647621" target="_blank" rel="noopener">↗ HN thread</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/JCodesMore/ai-website-cloner-template" target="_blank" rel="noopener">JCodesMore/ai-website-cloner-template</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A "use this template" starter that turns AI coding agents into a website reverse-engineering tool — point it at a URL, run <code>/clone-website</code>, and rebuild the site as a clean Next.js 16 + shadcn/ui + Tailwind v4 codebase via parallel builder agents.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~20.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~3.0k</span>
+          <span class="stat"><span class="lab">📈</span> re-spiking · #1 trending Jun 24</span>
+          <span class="stat"><span class="lab">🟡</span> last commit Jun 1 · release Mar 30</span>
+        </div>
+        <div class="traction">Concrete use cases — migrating off WordPress/Webflow, recovering lost source — resonate, and the ~1:7 fork:star ratio shows real copying. Main red flag: buzz-led not maintenance-led — only ~40 lifetime commits and no release in ~3 months. May settle to "early/experimental" if the bump fades.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/JCodesMore/ai-website-cloner-template" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://trendshift.io/repositories/24302" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/google-labs-code/design.md" target="_blank" rel="noopener">google-labs-code/design.md</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open spec + agent-first CLI/linter for the DESIGN.md format — machine-readable design tokens plus markdown rationale that gives coding agents a persistent understanding of a brand's design system. Validates tokens, checks WCAG contrast, exports to Tailwind &amp; W3C DTCG.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~19.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~1.7k</span>
+          <span class="stat"><span class="lab">📈</span> rapid · viral Apr launch</span>
+          <span class="stat"><span class="lab">🟢</span> v0.3.0 Jun 15 · 4 releases/2mo</span>
+        </div>
+        <div class="traction">Backed by Google Labs (spun out of Stitch); on npm as <code>@google/design.md</code>. Sits in the emerging "agent instruction files" category alongside AGENTS.md and SKILL.md. Caveat: still alpha and Google-driven — today's spike is momentum and brand pull more than proven independent production traction.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/google-labs-code/design.md" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/google-labs-code/design.md/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-06-26 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+</body>
+</html>

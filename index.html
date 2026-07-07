@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#f2f0eb;
+  --ceramic:#edebe9;
+  --white:#ffffff;
+  --sb-green:#006241;
+  --green-accent:#00754A;
+  --house-green:#1E3932;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:860px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--font);letter-spacing:var(--track);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.hero{background:var(--house-green);color:var(--on-dark);border-radius:0 0 24px 24px;box-shadow:var(--card-shadow)}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:66px 24px 54px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:52px;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero p{color:var(--on-dark-soft);font-size:17px;max-width:540px;margin:0 auto}
+
+.grid{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+.dcard{
+  display:flex;align-items:center;gap:20px;background:var(--white);
+  border-radius:var(--card-radius);box-shadow:var(--card-shadow);border-left:4px solid var(--green-accent);
+  padding:20px 24px;text-decoration:none;color:inherit;transition:box-shadow .2s ease, transform .2s ease;
+}
+.dcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08);transform:translateX(3px)}
+.dcard:active{transform:scale(0.99)}
+.dcard .date{flex:none;text-align:center;min-width:66px}
+.dcard .date .d{font-size:26px;font-weight:700;line-height:1;color:var(--sb-green)}
+.dcard .date .m{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em;margin-top:5px}
+.dcard .mid{flex:1;min-width:0}
+.dcard .top-news{font-size:16px;font-weight:600;line-height:1.4;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dcard .chip{display:inline-block;margin-top:9px;font-size:12px;color:var(--ink-soft);background:var(--ceramic);padding:4px 12px;border-radius:var(--pill)}
+.dcard .chip b{color:var(--ink);font-weight:600}
+.dcard .arrow{flex:none;color:var(--green-accent);font-size:22px}
+
+footer{margin-top:56px;background:var(--house-green);color:var(--on-dark-soft);border-radius:24px 24px 0 0;text-align:center;padding:36px 24px;font-size:13px}
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">Archive</div>
+      <h1>AI Daily</h1>
+      <p>Daily AI digest — top news of the day &amp; the repos the world is most interested in.</p>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+  <footer>Built by parallel research agents · newest first</footer>
+
+<script>
+const DIGESTS = [
+  { date:"2026-07-07", file:"ai-daily-2026-07-07.html", topNews:"Meituan Open-Sources LongCat-2.0, a 1.6-Trillion-Parameter MoE Model; Kuaishou's Kling AI Spun Off with $2B Initial Funding", newsCount:10, repoCount:5 },
+  { date:"2026-07-06", file:"ai-daily-2026-07-06.html", topNews:"UN Launches First Global Dialogue on Artificial Intelligence Governance in Geneva; Global Venture Funding Hits Record $510B in H1 2026", newsCount:10, repoCount:5 },
+  { date:"2026-07-04", file:"ai-daily-2026-07-04.html", topNews:"Anthropic Launches Claude 3.6 Opus with 4M-Token Context Window and Native Video Reasoning; Meta Introduces Llama 4-Omni Distilled", newsCount:10, repoCount:5 },
+  { date:"2026-07-02", file:"ai-daily-2026-07-02.html", topNews:"OpenAI Proposes 5% Equity Stake to U.S. Government to Ease Regulatory Pressures; NVIDIA Launches Revenue-Sharing and Credit-Support Model", newsCount:10, repoCount:5 },
+  { date:"2026-07-01", file:"ai-daily-2026-07-01.html", topNews:"Anthropic Unveils 'Claude Science' AI Research Workbench with Integrated Scientific Tools", newsCount:10, repoCount:5 },
+  { date:"2026-06-26", file:"ai-daily-2026-06-26.html", topNews:"SpaceX buys Cursor-maker Anysphere for $60B — the largest venture-backed acquisition ever", newsCount:10, repoCount:5 },
+  { date:"2026-06-27", file:"ai-daily-2026-06-27.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) — and the US government gates the launch for the first time", newsCount:10, repoCount:5 },
+  { date:"2026-06-28", file:"ai-daily-2026-06-28.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) under government-gated access; ex-Anthropic team's Mirendil lands a $200M seed", newsCount:10, repoCount:5 },
+  { date:"2026-06-30", file:"ai-daily-2026-06-30.html", topNews:"OpenAI Previews GPT-5.6 Sol with Advanced Subagent Architecture; PhysisForcing framework enforces physical consistency in robotics world models", newsCount:10, repoCount:5 },
+];
+
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const grid = document.getElementById("grid");
+DIGESTS.sort((a,b)=> b.date.localeCompare(a.date));
+for(const d of DIGESTS){
+  const [Y,M,D] = d.date.split("-").map(Number);
+  const a = document.createElement("a");
+  a.className = "dcard";
+  a.href = d.file;
+  a.innerHTML = `
+    <div class="date"><div class="d">${D}</div><div class="m">${MONTHS[M-1]} ${Y}</div></div>
+    <div class="mid">
+      <div class="top-news">${d.topNews}</div>
+      <span class="chip"><b>${d.newsCount}</b> news · <b>${d.repoCount}</b> repos</span>
+    </div>
+    <div class="arrow">›</div>`;
+  grid.appendChild(a);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Monday, July 6, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Monday, July 6, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>UN Launches First Global Dialogue on Artificial Intelligence Governance in Geneva</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>The United Nations has officially opened the first Global Dialogue on Artificial Intelligence Governance in Geneva. The initiative brings together international experts, policymakers, and industry leaders to establish a shared evidence base for managing AI's rapid advancements and formulating global standards.</p>
+          <div class="why"><b>Why it matters:</b> This represents a step towards coordinated international AI governance, attempting to unify disparate national regulatory frameworks under a central, evidence-based UN platform.</div>
+          <a class="ref" href="https://www.un.org" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Global Venture Funding Hits Record $510B in H1 2026 Driven by AI Megadeals</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Industry reports confirmed that global venture capital funding reached a record $510 billion in the first half of 2026. A massive portion of this capital concentration was driven by AI megadeals, with foundational model labs OpenAI and Anthropic alone securing a combined $217 billion.</p>
+          <div class="why"><b>Why it matters:</b> The record-breaking figure underscores the unprecedented capital intensity of the AI sector, as investors prioritize scaling frontier models over traditional SaaS applications.</div>
+          <a class="ref" href="https://www.crunchbase.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>UK AI Startups Secure Record $12.6 Billion in First Half of 2026</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Startup funding data revealed that UK technology firms raised a total of $17 billion in H1 2026, with AI startups capturing a staggering $12.6 billion of that total—a 102% increase year-on-year.</p>
+          <div class="why"><b>Why it matters:</b> This massive surge consolidates the UK's position as the leading European hub for AI research, development, and investment.</div>
+          <a class="ref" href="https://ffnews.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Mistral AI Releases Leanstral 1.5 for Lean 4 Formal Proof Verification</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Mistral AI has open-sourced Leanstral 1.5, a 119-billion-parameter Mixture-of-Experts (MoE) model specialized for formal proof engineering in the Lean 4 proof assistant. Under an Apache-2.0 license, it achieved a 100% solve rate on the miniF2F benchmark and solved 587 of 672 problems on the PutnamBench. Additionally, the model proved its utility in software engineering by identifying five previously unknown bugs across 57 open-source repositories.</p>
+          <div class="why"><b>Why it matters:</b> The release democratizes state-of-the-art formal verification, allowing open-source developers to formally prove the correctness of code and mathematical logic.</div>
+          <a class="ref" href="https://mistral.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Broadcom, Apollo, and Blackstone Launch $35 Billion AI Infrastructure Platform</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-09</div>
+          <p>Broadcom, Apollo Global Management, and Blackstone's Credit & Insurance business launched the "AI XPV Platform" with an initial $35 billion capital solution. The private debt program is designed to finance the deployment of over 20 gigawatts of compute capacity for frontier AI labs through 2028. The first phase of the rollout will back a 1-gigawatt infrastructure expansion for Anthropic, with hardware lease terms secured by Broadcom's residual value guarantees.</p>
+          <div class="why"><b>Why it matters:</b> This novel structured-debt model allows AI developers to scale massive compute infrastructure off-balance-sheet, reducing equity dilution as they prepare for public markets.</div>
+          <a class="ref" href="https://www.broadcom.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Salesforce Agrees to Acquire AI Support Agent Startup Fin for $3.6 Billion</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-15</div>
+          <p>Salesforce announced a definitive agreement to acquire Fin (formerly known as Intercom) in an all-cash transaction valued at approximately $3.6 billion. The acquisition will integrate Fin’s autonomous customer support agents, powered by its proprietary Apex language model, directly into Salesforce's Agentforce platform.</p>
+          <div class="why"><b>Why it matters:</b> Major software suites are aggressively buying established AI-native startups to quickly embed autonomous agent capabilities, bypassing years of internal development.</div>
+          <a class="ref" href="https://www.salesforce.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>EU Council Formally Approves "Digital Omnibus" Delaying AI Act Deadlines</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-29</div>
+          <p>The Council of the European Union gave its final approval to the "Digital Omnibus on AI," officially delaying key compliance deadlines for the EU AI Act. The application date for standalone high-risk AI systems is deferred from August 2026 to December 2, 2027, while high-risk systems embedded in regulated products are delayed to August 2028. However, the legislation accelerates deadlines for prohibitions on AI-generated non-consensual intimate media and child abuse material to December 2, 2026.</p>
+          <div class="why"><b>Why it matters:</b> Regulators are conceding to industry pressure by granting companies a 16-month compliance extension to build harmonized standards, while keeping transparency rules on a fast track.</div>
+          <a class="ref" href="https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Digital Science Announces AI-Driven Dimensions Research Strategy Platform</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Scientific technology company Digital Science announced the upcoming launch of Dimensions Research Strategy, an AI-powered analytics platform designed for research-intensive institutions. The tool analyzes global publication databases to provide evidence-backed strategic insights for university planning, funding opportunities, and corporate partnerships.</p>
+          <div class="why"><b>Why it matters:</b> Applying domain-specific AI to scientific metadata helps research managers identify emerging scientific trends and optimize global research strategy.</div>
+          <a class="ref" href="https://www.digital-science.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Emirates NBD Partners with Techstars to Launch Agentic FinTech Accelerator</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Banking group Emirates NBD announced a strategic partnership with global startup accelerator Techstars to launch a program focusing on "agentic finance." The accelerator aims to source, fund, and integrate early-stage AI startups building autonomous agents for customer service, compliance, and automated trading.</p>
+          <div class="why"><b>Why it matters:</b> This partnership signals that traditional banking institutions are actively accelerating the deployment of autonomous financial agents directly into their core banking ecosystems.</div>
+          <a class="ref" href="https://www.emiratesnbd.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Sakana AI Launches Fugu Ultra Multi-Agent learned Orchestrator</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>Tokyo-based Sakana AI has released Fugu Ultra, a multi-agent orchestration platform that dynamically routes user queries across a network of underlying LLMs (such as GPT-5.5, Gemini 3.1 Pro, and Claude Opus 4.8). Rather than serving as a monolithic model, it relies on Sakana's TRINITY and Conductor research frameworks to coordinate, delegate, and synthesize outputs via a single OpenAI-compatible API. The system became highly relevant in June as an export-control-resilient alternative for regions with restricted access to direct frontier models.</p>
+          <div class="why"><b>Why it matters:</b> It shifts the paradigm from monolithic scaling to meta-orchestration, demonstrating that routing and synthesizing across multiple expert models can yield frontier-level capabilities.</div>
+          <a class="ref" href="https://sakana.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/JuliusBrussee/caveman" target="_blank" rel="noopener">JuliusBrussee/caveman</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A token-optimization skill and plugin for Claude Code (and other AI coding assistants) that forces the AI to communicate in a terse, "caveman-style" language, slashing output token usage by 65–75% while maintaining technical accuracy.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~84.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~4.7k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High developer adoption for optimizing Claude Code workflows and reducing API yapping. Has spawned a broader ecosystem (`caveman-code`, `cavemem`, `cavekit`) and inspired community ports (like `Claurst` in Rust).</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/JuliusBrussee/caveman" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/JuliusBrussee/caveman/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://getcaveman.dev" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/virattt/dexter" target="_blank" rel="noopener">virattt/dexter</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An autonomous AI agent designed for deep financial research. It decomposes complex financial queries into structured plans, retrieves real-time market data/SEC filings, and runs an iterative self-validation loop to generate data-backed answers.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 27.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 3.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong developer and retail investor buzz. Known as "Claude Code for finance" due to its plan-act-reflect-verify architecture. Vertically integrated with `financial-datasets.ai` and features an interactive CLI UI.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/virattt/dexter" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/virattt/dexter/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://github.com/virattt/dexter/issues" target="_blank" rel="noopener">↗ Issues</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/OthmanAdi/planning-with-files" target="_blank" rel="noopener">OthmanAdi/planning-with-files</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A Manus-style persistent planning system for AI coding agents that uses local Markdown files (`task_plan.md`, `findings.md`, `progress.md`) to maintain state and prevent context window drift or goal loss.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~24.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~2.1k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Works with 60+ AI agents and IDEs via the `SKILL.md` standard. Discussed as a vital context engineering pattern to guide LLMs through complex, multi-step tasks.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/OthmanAdi/planning-with-files" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://star-history.com/#OthmanAdi/planning-with-files" target="_blank" rel="noopener">↗ Star History</a>
+          <a class="ref" href="https://github.com/OthmanAdi/planning-with-files/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/alibaba/page-agent" target="_blank" rel="noopener">alibaba/page-agent</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, TypeScript-based client-side GUI agent library that embeds autonomous AI browser automation directly into web applications, interacting natively with the live DOM (via "DOM dehydration") and inheriting the user's active session.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 23.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.0k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Significant buzz due to its client-side model. Compresses pages into a `FlatDomTree` for text-based LLMs instead of using heavy external processes (Selenium/Playwright) or vision APIs.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/alibaba/page-agent" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=46473187" target="_blank" rel="noopener">↗ HN Thread</a>
+          <a class="ref" href="https://alibaba.github.io/page-agent/" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/langchain-ai/openwiki" target="_blank" rel="noopener">langchain-ai/openwiki</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An agent-native CLI tool and GitHub Action designed to automatically generate, structure, and maintain documentation optimized for LLM context windows to prevent documentation drift and improve AI coding agent efficiency.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 5.9k</span>
+          <span class="stat"><span class="lab">🍴</span> 407</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong early interest in the AI developer community. Rides on the trend of "agent-native documentation" (like `CLAUDE.md` and `AGENTS.md`) and has sparked immediate Hacker News discussions.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/langchain-ai/openwiki" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://blog.langchain.dev/openwiki/" target="_blank" rel="noopener">↗ Blog Post</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=40848039" target="_blank" rel="noopener">↗ HN Thread</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-06 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

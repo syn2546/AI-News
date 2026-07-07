@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Thursday, July 2, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero — House Green feature band ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer — House Green band ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Thursday, July 2, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>OpenAI Proposes 5% Equity Stake to U.S. Government to Ease Regulatory Pressures</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>OpenAI has entered conceptual discussions with the Trump administration to transfer a 5% equity stake—representing corporate ownership—to a government-run public wealth fund. Valued at roughly $42.6 billion based on OpenAI's $852 billion valuation, the proposal is framed by CEO Sam Altman as a way to share the economic benefits of AI and mitigate political pressure. Altman has also advocated that other frontier AI companies cede similar stakes.</p>
+          <div class="why"><b>Why it matters:</b> This unprecedented proposal is a strategic attempt to preempt antitrust actions and national security clampdowns by structurally aligning the financial interests of frontier AI companies directly with the U.S. Treasury.</div>
+          <a class="ref" href="https://www.ft.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>NVIDIA Launches Revenue-Sharing and Credit-Support Model for AI Cloud Providers</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>NVIDIA launched a novel financing model providing credit support and risk-sharing guarantees to specialized AI cloud providers like Sharon AI and Firmus to build large-scale data centers ("AI factories"). Rather than just selling hardware upfront, NVIDIA will receive product revenue plus a recurring share of the cloud service revenue generated by the deployed GPUs, and guarantees to repurchase unsold GPU capacity to insulate providers from demand drops.</p>
+          <div class="why"><b>Why it matters:</b> By assuming capital expenditure risk and securing direct revenue shares, NVIDIA is transforming from a hardware vendor into a primary financier and joint-venture stakeholder in the AI cloud infrastructure market.</div>
+          <a class="ref" href="https://www.nvidia.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Abu Dhabi-Based MGX Closes Historic $49 Billion AI Infrastructure Fund</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Abu Dhabi-based investment firm MGX announced the closing of a historic $49 billion fund dedicated entirely to AI infrastructure. The fund will target multi-billion dollar capital allocations in semiconductor manufacturing, power generation, and data center developments worldwide.</p>
+          <div class="why"><b>Why it matters:</b> Closing one of the largest investment vehicles in tech history highlights the enormous, sovereign-backed scale of capital required to build out the next generation of global AI physical infrastructure.</div>
+          <a class="ref" href="https://www.mgx.ae" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Together AI Secures $800 Million Series C at $8.3 Billion Valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Together AI closed an $800 million Series C funding round led by Aramco Ventures' Prosperity7 Ventures, bringing its valuation to $8.3 billion. The round drew participation from NVIDIA, Salesforce Ventures, Vista Equity Partners, and General Catalyst, and is backed by commitments for over 500 megawatts of independently capitalized compute capacity.</p>
+          <div class="why"><b>Why it matters:</b> This sovereign-wealth-backed capital surge solidifies Together AI as the premier cloud provider for open-source models, directly challenging the proprietary cloud models of giants like Microsoft and OpenAI.</div>
+          <a class="ref" href="https://www.businesswire.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic Launches Claude 5 Sonnet with Native Browser and Terminal Agency</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-30</div>
+          <p>Anthropic released Claude 5 Sonnet, a model optimized for long-horizon autonomous tasks like browser navigation, terminal execution, and multi-step planning. The model features a 1-million-token context window, "adaptive-only" thinking modes, and introductory pricing of $2 per million input and $10 per million output tokens, narrowing the performance gap with Opus-class models while lowering operational costs.</p>
+          <div class="why"><b>Why it matters:</b> This release commoditizes deep agentic reasoning and tool use, making complex multi-step workflows commercially viable for developers.</div>
+          <a class="ref" href="https://www.anthropic.com/news/claude-5-sonnet" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Google DeepMind Introduces LEAP Agentic Framework for Formal Mathematics</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-01</div>
+          <p>Researchers from Google DeepMind and Google Cloud AI published LEAP (LLM-in-Lean Environment Agentic Prover), an agentic framework that decomposes complex theorems into Directed Acyclic Graphs (DAGs) of lemmas, querying general-purpose LLMs and iteratively refining them based on compiler feedback. It successfully solved all 12 problems in the 2025 Putnam Competition and boosted the solve rate on Lean-IMO-Bench to 70%.</p>
+          <div class="why"><b>Why it matters:</b> LEAP demonstrates that general-purpose foundation models, when paired with compiler-verified agentic loops, can match or exceed specialized mathematical provers without custom fine-tuning.</div>
+          <a class="ref" href="https://arxiv.org/abs/2606.03303" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>EquiLibre Technologies Reaches $500 Million Valuation in Record Series A</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Prague-based AI lab EquiLibre Technologies raised a Series A funding round led by Creandum, valuing the company at over €438 million ($500 million). Founded by former Google DeepMind researchers who developed the poker-playing AI DeepStack, the startup applies reinforcement learning to financial markets. Creandum confirmed this is the largest single investment in the venture capital firm's history.</p>
+          <div class="why"><b>Why it matters:</b> The record-breaking round signals that top-tier AI researchers are increasingly bypassing traditional consumer or enterprise SaaS to deploy reinforcement learning directly into high-frequency, high-stakes proprietary trading operations.</div>
+          <a class="ref" href="https://www.eu-startups.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>Anthropic Restores Claude Fable 5 and Mythos 5 Global Access with Identity-Verified Usage Credits</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-30</div>
+          <p>Following a regulatory stand-off and export-control lifting, Anthropic restored global access to its frontier models, Claude Fable 5 and Mythos 5. The models are now hosted with approved security mitigations, and access will require identity-verified usage-credit accounts.</p>
+          <div class="why"><b>Why it matters:</b> This resolution establishes a framework where frontier models are deployed with strict rate limits and identity verification to comply with government cybersecurity oversight.</div>
+          <a class="ref" href="https://www.anthropic.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Tapestry VC Closes €80 Million Fund with Renewed Focus on AI Security</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>European early-stage investment firm Tapestry VC announced the close of an €80 million ($86 million USD) fund. The capital will target European founders building early-stage startups focused on AI safety, model alignment, and automated security software.</p>
+          <div class="why"><b>Why it matters:</b> The dedicated fund reflects growing investor demand for specialized security and alignment software as enterprises scale autonomous agent deployments.</div>
+          <a class="ref" href="https://www.tapestry.vc" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Thailand's Amity Robotics Secures $7 Million Seed Round for ARC Base AI Kiosks</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Bangkok-based Amity Robotics secured $7 million in a seed round (equity and debt) to scale its "ARC Base" physical AI kiosks and robotics platform. The kiosks integrate local-first AI models to automate check-ins, customer service, and physical queue management in retail and healthcare environments.</p>
+          <div class="why"><b>Why it matters:</b> This investment highlights the growing capitalization of physical AI applications in Southeast Asia, bringing LLMs into public retail interfaces.</div>
+          <a class="ref" href="https://www.amity.co" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">msitarzewski/agency-agents</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source catalog of over 200 specialized, markdown-based AI agent personalities (e.g., Backend Architect, Security Engineer) designed to narrow LLM context and transform generic coding assistants into domain-specific experts.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~124k</span>
+          <span class="stat"><span class="lab">🍴</span> ~20k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Transitioned into a full ecosystem with a Tauri 2/Svelte 5 desktop app to automate installation and syncing across IDEs/CLIs like Cursor, Aider, Windsurf, and Claude Code.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/msitarzewski/agency-agents-app" target="_blank" rel="noopener">↗ Desktop App</a>
+          <a class="ref" href="https://agencyagents.app" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/usestrix/strix" target="_blank" rel="noopener">usestrix/strix</a></div>
+          <span class="verdict">🛠️ mature & active</span>
+        </div>
+        <div class="desc">An open-source, autonomous AI-powered security platform that simulates human hackers using multi-agent orchestration to dynamically scan, identify, and validate vulnerabilities with reproducible Proof-of-Concepts (PoCs) in sandboxed Docker environments.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~29.7k</span>
+          <span class="stat"><span class="lab">🍴</span> ~3.2k</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Active adoption in CI/CD pipelines (GitHub Actions) for pre-merge vulnerability scans. Partnered with the Caido proxy team in March 2026 to integrate agentic auditing into client workflows.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/usestrix/strix" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://strix.mintlify.app" target="_blank" rel="noopener">↗ Docs</a>
+          <a class="ref" href="https://usestrix.com" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/ogulcancelik/herdr" target="_blank" rel="noopener">ogulcancelik/herdr</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, terminal-based agent multiplexer ("tmux for agents") written in Rust that runs, manages, and tracks the states (working, blocked, done, idle) of multiple parallel AI coding agents locally.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~9.6k</span>
+          <span class="stat"><span class="lab">🍴</span> ~565</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High developer buzz for orchestrating multiple agents (Claude Code, Goose). Solves terminal sprawl via real-time state tracking and a local Unix socket API.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/ogulcancelik/herdr" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://herdr.dev" target="_blank" rel="noopener">↗ Website</a>
+          <a class="ref" href="https://news.ycombinator.com" target="_blank" rel="noopener">↗ HN Discussion</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/TencentCloud/CubeSandbox" target="_blank" rel="noopener">TencentCloud/CubeSandbox</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, high-performance, and secure sandbox runtime environment written in Rust (using RustVMM and KVM) designed specifically to execute untrusted, LLM-generated code for AI agents with kernel-level hardware isolation.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 6.8k</span>
+          <span class="stat"><span class="lab">🍴</span> 568</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">API-compatible open-source alternative to E2B. Battle-tested internally at Tencent Cloud. Cold start times sub-60ms, memory footprint &lt;5MB per instance, supporting 2k+ concurrent sandboxes.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/TencentCloud/CubeSandbox" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=43834571" target="_blank" rel="noopener">↗ HN Thread</a>
+          <a class="ref" href="https://cubesandbox.com" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/altic-dev/FluidVoice" target="_blank" rel="noopener">altic-dev/FluidVoice</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A free, open-source, local-first dictation and AI text-enhancement application for macOS. It processes audio on-device and leverages "Fluid Intelligence" (a custom local model) to format, punctuate, and clean up dictated speech in real time.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 5.6k</span>
+          <span class="stat"><span class="lab">🍴</span> 333</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Widely adopted as the primary free, open-source, private alternative to subscription-based AI dictation apps like Wispr Flow and Superwhisper. High real-world interest in privacy-conscious dictation.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/altic-dev/FluidVoice" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://altic.dev/fluid" target="_blank" rel="noopener">↗ Website</a>
+          <a class="ref" href="https://github.com/altic-dev/FluidVoice/releases/tag/v1.6.1" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-02 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>

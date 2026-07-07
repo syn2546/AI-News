@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Tuesday, June 30, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero — House Green feature band ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer — House Green band ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Tuesday, June 30, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI Previews GPT-5.6 Sol with Advanced Subagent Architecture</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-26</div>
+          <p>OpenAI introduced a limited preview of its new GPT-5.6 model family, led by its flagship reasoning model "Sol." Sol features a "max reasoning effort" mode for intensive logic, math, and code generation, alongside an "ultra mode" that coordinates specialized subagents to execute complex workflows. The release is currently restricted to select enterprise partners in coordination with security frameworks.</p>
+          <div class="why"><b>Why it matters:</b> It marks a major shift from monolithic models to native, multi-agent frameworks optimized directly at the provider level, setting a new baseline for autonomous problem-solving.</div>
+          <a class="ref" href="https://openai.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>PhysisForcing: A New Training Framework Enforces Physical Consistency in Robotics World Models</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-28</div>
+          <p>Researchers from Peking University, DAGroup, and NVIDIA published PhysisForcing, a training framework designed to correct physical implausibility in video-generative world models. By implementing pixel-level trajectory and semantic-level relational alignments on interaction points, it enforces strict contact dynamics and object permanence constraints.</p>
+          <div class="why"><b>Why it matters:</b> Enforcing physical laws during DiT training dramatically improves robotic simulation fidelity and success rates in real-world manipulation tasks without adding any inference-time computational overhead.</div>
+          <a class="ref" href="https://arxiv.org/abs/2606.28128" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Compliance Startup Norm AI Raises $120 Million for Autonomous Agent Governance</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-25</div>
+          <p>Enterprise compliance platform Norm AI raised $120 million in new funding from 19 investors, according to SEC regulatory filings. The startup translates complex legal and regulatory frameworks into code to manage the risks of autonomous AI agents. The funding follows a $50 million investment from Blackstone in late 2025 and will support their specialized AI-native law firm and Legal AGI research lab.</p>
+          <div class="why"><b>Why it matters:</b> Enterprise buyers will not deploy autonomous AI agents until they have programmatic legal guardrails, making AI compliance a critical, highly capitalized sector.</div>
+          <a class="ref" href="https://www.norm.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Google Releases Native "Computer Use" API for Gemini 3.5 Flash</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>Google announced the public preview of built-in "computer use" support for Gemini 3.5 Flash via the Gemini API and Google Cloud Enterprise Agent Platform. This native integration enables developers to build agents that can see, reason, and interact with desktop, browser, and mobile interfaces directly, replacing the need for separate standalone models. The update includes configurable safety policies and targeted adversarial training to mitigate interface-driven prompt injections.</p>
+          <div class="why"><b>Why it matters:</b> Bringing OS-level control directly into a fast, low-latency model like Flash significantly lowers the cost and latency barriers for wide-scale agentic desktop automation.</div>
+          <a class="ref" href="https://google.dev" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>OpenAI Unveils "Jalapeño," Its First Custom AI Inference Chip</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>OpenAI, in partnership with Broadcom and Celestica, has taped out and run engineering samples of its first custom-designed ASIC inference processor, codenamed "Jalapeño." Architected from design to tape-out in only nine months using OpenAI's own model pipelines, Jalapeño is optimized specifically for large language model workloads to bypass typical memory, networking, and data-movement bottlenecks of general-purpose GPUs. Scaled deployment in partner data centers is planned to begin in late 2026.</p>
+          <div class="why"><b>Why it matters:</b> Building custom silicon allows OpenAI to decouple its operating costs from Nvidia's pricing power and supply constraints while achieving massive scaling efficiencies for next-gen models.</div>
+          <a class="ref" href="https://openai.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Qualcomm to Acquire Modular Inc. in $3.92 Billion All-Stock Deal</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-24</div>
+          <p>Qualcomm announced a definitive agreement to acquire AI software infrastructure developer Modular Inc. for $3.92 billion in an all-stock transaction. The deal brings Modular’s Mojo programming language and MAX inference engine in-house, enabling Qualcomm to build a silicon-agnostic compute layer that runs seamlessly across any chip type. This combined tech aims to optimize performance-per-watt for edge devices and servers running next-gen autonomous agents.</p>
+          <div class="why"><b>Why it matters:</b> This acquisition directly attacks Nvidia’s proprietary CUDA software ecosystem, aiming to break the chip leader's developer lock-in by offering a flexible, open alternative.</div>
+          <a class="ref" href="https://www.qualcomm.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Mistral AI Launches OCR 4 for Advanced Multilingual Document Intelligence</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-23</div>
+          <p>Mistral AI released OCR 4, a specialized document intelligence model designed to automate complex structured data extraction for enterprise workflows. The model natively processes layout structure—including block classification and bounding box coordinates—across 170 languages and is packaged for containerized self-hosting.</p>
+          <div class="why"><b>Why it matters:</b> It provides enterprises with a highly localized, security-compliant alternative to cloud-based OCR APIs for converting unstructured PDFs and scans into machine-readable datasets.</div>
+          <a class="ref" href="https://mistral.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>AI Inference Provider Baseten Secures $1.5 Billion Series F at $13 Billion Valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>Baseten raised $1.5 billion in a Series F round co-led by Altimeter Capital, Conviction Partners, Spark Capital, Sands Capital, and Wellington Management. The round values the inference infrastructure startup at $13 billion post-money, representing its fourth capital raise in 18 months. The funding comes on the heels of explosive demand, with Baseten's ARR spiking from $200 million to $600 million in Q1 2026.</p>
+          <div class="why"><b>Why it matters:</b> This mega-round proves that investors are aggressively shifting capital away from training new frontier models and toward the infrastructure needed to run them cost-effectively at scale.</div>
+          <a class="ref" href="https://www.baseten.co" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Chipmaker Groq Closes $650 Million Growth Round to Scale Neocloud Footprint</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-22</div>
+          <p>AI chip designer Groq raised $650 million in growth funding led by Disruptive and Infinitum. The capital is designated to build out Groq’s AI inference neocloud to a capacity of 200 megawatts by late 2027. This expansion marks a major scaling phase for Groq following a massive licensing and talent-transfer deal with Nvidia in late 2025.</p>
+          <div class="why"><b>Why it matters:</b> Groq's massive capital injection signals the rise of independent, specialized AI clouds that bypass traditional hyperscalers to offer developers lower latency and higher processing speeds.</div>
+          <a class="ref" href="https://groq.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>EU Parliament Delays Critical High-Risk Deadlines for EU AI Act Compliance</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-16</div>
+          <p>The European Parliament approved a legislative package called the "Digital Omnibus" that delays compliance deadlines for high-risk AI systems. Stand-alone high-risk AI software compliance is pushed to December 2, 2027, while high-risk systems embedded in physical products are delayed to August 2, 2028. However, transparency rules requiring companies to label deepfakes and disclose chatbot interactions remain active for August 2, 2026.</p>
+          <div class="why"><b>Why it matters:</b> The delay gives developers breathing room to navigate compliance burdens, preventing regulatory overhead from choking off early-stage AI investment and deployment in Europe.</div>
+          <a class="ref" href="https://www.europarl.europa.eu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">DietrichGebert/ponytail</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An AI agent plugin/skill (for Claude Code, Cursor, Copilot, Aider, etc.) that instructs models to write minimalist, platform-native code following the YAGNI principle—acting like the "laziest senior dev in the room" to reduce token usage and prevent over-engineering.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~67.0k</span>
+          <span class="stat"><span class="lab">🍴</span> ~3.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Rapidly adopted by developers seeking to optimize token costs and code quality. Features sub-tools like <code>@ponytail-audit</code> and <code>ponytail-debt</code>. Author benchmarks claim up to a ~54% reduction in generated code lines, though Hacker News and Reddit communities are split between appreciating its efficacy and dismissing it as over-engineered prompting boilerplate.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://hn.algolia.com/?q=DietrichGebert+ponytail" target="_blank" rel="noopener">↗ HN Discussion</a>
+          <a class="ref" href="https://www.reddit.com/r/ClaudeCode/search/?q=ponytail" target="_blank" rel="noopener">↗ Reddit Community</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/baidu/Unlimited-OCR" target="_blank" rel="noopener">baidu/Unlimited-OCR</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, 3B-parameter Mixture-of-Experts (MoE) vision-language document-parsing framework that uses Reference Sliding Window Attention (R-SWA) to enable memory-efficient, single-pass OCR of long multi-page documents (40+ pages) without the KV cache bottleneck.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~12k</span>
+          <span class="stat"><span class="lab">🍴</span> ~941</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Racked up 12k stars in its first week due to viral interest in solving the KV cache scaling bottleneck that plagues other end-to-end OCR models (like DeepSeek OCR). It achieves 93% accuracy on OmniDocBench v1.5. Key integrations are already under development, with vLLM adding support in late June 2026 and community efforts underway to connect it with Docling and llama.cpp.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/baidu/Unlimited-OCR" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://arxiv.org/abs/2606.23050" target="_blank" rel="noopener">↗ Paper</a>
+          <a class="ref" href="https://huggingface.co/baidu/Unlimited-OCR" target="_blank" rel="noopener">↗ Hugging Face</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/XiaomiMiMo/MiMo-Code" target="_blank" rel="noopener">XiaomiMiMo/MiMo-Code</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">Terminal-native AI coding assistant and agentic harness developed by Xiaomi. It functions as a provider-agnostic coding partner featuring terminal command execution, Git integration, LSP, MCP, and persistent session memory via a subagent context rebuilder (supporting up to 65K context).</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~11.1k</span>
+          <span class="stat"><span class="lab">🍴</span> ~1.1k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Rapidly adopted by developers looking for a provider-agnostic alternative to Claude Code that supports multiple backend APIs (Anthropic, OpenAI, DeepSeek, Kimi, GLM, Minimax, and local LLMs) as well as Xiaomi's MiMo v2.5 Pro model. It has already been packaged for Homebrew (<code>brew install mimo-code</code>) and generated significant buzz on Hacker News and Reddit.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/XiaomiMiMo/MiMo-Code" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/XiaomiMiMo/MiMo-Code/releases/tag/v0.1.4" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://mimo.xiaomi.com/mimocode/start" target="_blank" rel="noopener">↗ Docs</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source framework and registry that transforms GUI-based, web, and API software into structured, agent-native CLI wrappers. This allows AI agents to control applications programmatically with deterministic JSON outputs rather than using fragile pixel-level GUI automation.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~44.3k</span>
+          <span class="stat"><span class="lab">🍴</span> ~4.1k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High real-world interest driven by AI coding agents (such as Claude Code, Cursor, and Cline). Developers use these CLI wrappers to automate desktop apps without the token overhead or visual error rates of GUI agents. It acts as a lightweight alternative to MCP. The project also maintains its own package registry, CLI-Hub (clianything.cc), to list and distribute community wrappers.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://clianything.cc/" target="_blank" rel="noopener">↗ Registry</a>
+          <a class="ref" href="https://arxiv.org/abs/2606.03854" target="_blank" rel="noopener">↗ Paper</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/tinyhumansai/openhuman" target="_blank" rel="noopener">tinyhumansai/openhuman</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, local-first personal AI assistant and workstation built in Rust and Tauri that integrates with over 118 third-party apps, maintaining an Obsidian-compatible markdown memory tree locally.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~33.9k</span>
+          <span class="stat"><span class="lab">🍴</span> ~3.3k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Massive early developer interest. Reached #1 on GitHub Trending and Trendshift in mid-May 2026, with over 140 community contributors. The project's main appeal lies in its "UI-first" desktop client, local-first privacy architecture, and the ability to extend the assistant via a TypeScript-based "Skills" registry.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/tinyhumansai/openhuman" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://tinyhumans.gitbook.io/openhuman" target="_blank" rel="noopener">↗ Docs</a>
+          <a class="ref" href="https://www.producthunt.com/posts/openhuman" target="_blank" rel="noopener">↗ Product Hunt</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-06-30 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>
