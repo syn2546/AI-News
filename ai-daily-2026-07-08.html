@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily — Wednesday, July 8, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Wednesday, July 8, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI Schedules Public Release of GPT-5.6 Sol, Terra, and Luna for July 9</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>OpenAI has announced that its next-generation GPT-5.6 model family—comprising Sol (high-reasoning flagship), Terra (balanced professional), and Luna (low-latency utility)—is scheduled for its official public launch on July 9, 2026. The launch follows a brief delay due to security reviews conducted with the U.S. government.</p>
+          <div class="why"><b>Why it matters:</b> This tiered lineup shifts pricing dynamics and establishes high-level government-coordinated security vetting as a standard step before public frontier model deployment.</div>
+          <a class="ref" href="https://openai.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Keyfactor Secures $1 Billion Strategic Growth Investment to Address AI-Driven Security Threats</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-07</div>
+          <p>Keyfactor, a machine identity management and cryptographic security platform, has secured over $1 billion in strategic growth investment led by Summit Partners. The funding will support product innovation and strategic acquisitions focused on mitigating AI-driven and post-quantum security vulnerabilities.</p>
+          <div class="why"><b>Why it matters:</b> This massive funding round highlights the soaring value of identity and cryptographic security as AI-driven phishing and deepfakes make traditional trust models obsolete.</div>
+          <a class="ref" href="https://www.keyfactor.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Z.ai Launches ZCode, an Agent-First Desktop Development Harness for GLM-5.2</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Z.ai (formerly Zhipu AI) has launched ZCode, a free desktop agentic development environment designed specifically to run its open-weight GLM-5.2 model. Unlike chat-based developer interfaces, ZCode functions as an autonomous harness that can plan, execute, test, and iterate on complex coding tasks.</p>
+          <div class="why"><b>Why it matters:</b> It advances AI coding assistants from passive autocomplete interfaces to fully autonomous agent environments, while leveraging high-performance open-weight models to bypass cloud-API vendor lock-in.</div>
+          <a class="ref" href="https://z.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Analog Devices Acquires Empower Semiconductor to Optimize AI Infrastructure Power Delivery</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-07</div>
+          <p>Analog Devices (ADI) completed its acquisition of Empower Semiconductor. The acquisition targets Empower's specialized power management integrated circuits (PMICs) to address the extreme power delivery and thermal challenges associated with frontier AI computing systems.</p>
+          <div class="why"><b>Why it matters:</b> Consolidating power management technology indicates that hardware optimization for AI is shifting down to the chip-level power delivery stage to maximize energy efficiency.</div>
+          <a class="ref" href="https://www.analog.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>LoopWM Paper Proposes "Iterative Latent Depth" to Scale World Models at 1/100th the Parameter Cost</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-16</div>
+          <p>Researchers at FaceMind Research Asia have published "Looped World Models" (LoopWM), an architecture that replaces deep stacks of unique transformer layers with a single parameter-shared transformer block. By passing latent environment states iteratively through this shared block, the model achieves up to 100x parameter efficiency.</p>
+          <div class="why"><b>Why it matters:</b> It establishes iterative latent depth as an alternative scaling axis, dramatically lowering the hardware barriers for training and deploying robust world models for embodied robotics.</div>
+          <a class="ref" href="https://arxiv.org/abs/2606.18208" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>HP Inc. Deploys OpenAI Frontier Platform Across Global Operations</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-07</div>
+          <p>HP Inc. has expanded its partnership with OpenAI to deploy its enterprise Frontier platform across all global software engineering, cybersecurity, and productivity divisions.</p>
+          <div class="why"><b>Why it matters:</b> This large-scale roll-out highlights the transition of generative AI platforms from localized department pilots to fully integrated corporate-wide developer infrastructure.</div>
+          <a class="ref" href="https://thefuturumgroup.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>RHINE AI Simulation Tool Accelerates Neutron Star Merger Astrophysics Models</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>GSI/FAIR researchers published details of RHINE, an AI-powered simulation tool designed to accelerate complex nuclear reaction models inside neutron star mergers. The tool provides a massive speedup in modeling the synthesis of heavy elements.</p>
+          <div class="why"><b>Why it matters:</b> Applying AI to accelerate physical and astronomical simulation models allows researchers to analyze cosmic events at a fraction of standard supercompute costs.</div>
+          <a class="ref" href="https://www.sciencedaily.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>UK Financial Reporting Council Warns Against AI Over-Reliance in Professional Judgment Tasks</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>The UK’s Financial Reporting Council (FRC) published research indicating that while corporate AI adoption is growing, firms should remain cautious. The FRC advises limiting deployment to low-risk automation rather than tasks requiring significant professional auditing judgment.</p>
+          <div class="why"><b>Why it matters:</b> Regulators are actively establishing boundaries for corporate auditing, warning that AI cannot replace legal or financial liability in professional accounting reports.</div>
+          <a class="ref" href="https://www.frc.org.uk" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>WELL Health Proposes $50M Financing and Listing for WELLSTAR Healthcare AI Platform</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-07</div>
+          <p>WELL Health announced a proposed TSXV listing and a concurrent $50 million financing round for its WELLSTAR healthcare software and AI division. The capital is designated for acquisitions and the development of clinical AI assistants.</p>
+          <div class="why"><b>Why it matters:</b> This signals the growing commercial viability of specialized, regulated clinical AI systems capable of assisting healthcare professionals in diagnosis and administration.</div>
+          <a class="ref" href="https://www.well.company" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>ECB Lane Highlights AI Implications for Monetary Policy and Broader Economic Modeling</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>In a public address, European Central Bank (ECB) Executive Board member Philip R. Lane outlined how AI affects monetary policy transmission and macroeconomic modeling. Lane noted that AI increases productivity but introduces structural uncertainties in labor markets and financial networks.</p>
+          <div class="why"><b>Why it matters:</b> Central banks are beginning to formalize AI as a systemic economic variable that influences inflation, productivity metrics, and central bank decision-making.</div>
+          <a class="ref" href="https://www.ecb.europa.eu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/addyosmani/agent-skills" target="_blank" rel="noopener">addyosmani/agent-skills</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source collection of production-grade engineering workflows and markdown-based "skills" designed to guide AI coding agents (Claude Code, Cursor, Copilot) through standard SDLC phases and enforce disciplined engineering guardrails.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 72.4k</span>
+          <span class="stat"><span class="lab">🍴</span> 7.8k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Broad adoption among developers setting up agentic workspaces; highlighted in a dedicated session at Microsoft Build 2026; widely discussed on Hacker News and Reddit.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/addyosmani/agent-skills" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://addyosmani.com/blog/agent-skills/" target="_blank" rel="noopener">↗ Philosophical Breakdown</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/iOfficeAI/OfficeCLI" target="_blank" rel="noopener">iOfficeAI/OfficeCLI</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, C#-based, single-binary CLI tool designed specifically for AI agents to programmatically read, write, edit, and render Microsoft Office files (Word, Excel, PowerPoint) without requiring a local Office installation.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~10.4k</span>
+          <span class="stat"><span class="lab">🍴</span> ~700</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong adoption among developers building autonomous AI agents and document automation pipelines. Bypasses brittle COM dependencies using a custom HTML rendering engine.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/iOfficeAI/OfficeCLI" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=48807225" target="_blank" rel="noopener">↗ HN Thread</a>
+          <a class="ref" href="https://officecli.ai" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/hesreallyhim/awesome-claude-code" target="_blank" rel="noopener">hesreallyhim/awesome-claude-code</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">A community-curated, high-signal index of custom skills, hooks, slash-commands, agent orchestrators, plugins, and project configuration guidelines designed to optimize Anthropic's Claude Code CLI.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~49.3k</span>
+          <span class="stat"><span class="lab">🍴</span> ~4.3k</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Curated resource hub for the Claude Code developer ecosystem, heavily cited on Reddit, Hacker News, and technical articles.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/hesreallyhim/awesome-claude-code" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/hesreallyhim/awesome-claude-code/blob/main/README.md" target="_blank" rel="noopener">↗ README</a>
+          <a class="ref" href="https://trendshift.io/repositories/11690" target="_blank" rel="noopener">↗ Trendshift</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/kyutai-labs/pocket-tts" target="_blank" rel="noopener">kyutai-labs/pocket-tts</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">A lightweight, open-source 100M-parameter Text-to-Speech (TTS) model designed by Kyutai Labs for fast CPU-based local execution, zero-shot voice cloning, and low-latency streaming.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~6.3k</span>
+          <span class="stat"><span class="lab">🍴</span> ~650</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">CPU efficiency (~6x real-time on Apple M4) and zero-shot voice cloning (needs only 5s audio). Has spawned ports like `pocket-tts.cpp` and WASM.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/kyutai-labs/pocket-tts" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://huggingface.co/kyutai/pocket-tts" target="_blank" rel="noopener">↗ Model Card</a>
+          <a class="ref" href="https://kyutai.org/" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/ruvnet/RuView" target="_blank" rel="noopener">ruvnet/RuView</a></div>
+          <span class="verdict">🧪 early/experimental</span>
+        </div>
+        <div class="desc">An open-source WiFi sensing platform that claims to transform Channel State Information (CSI) from commodity ESP32-S3 hardware into spatial intelligence and sleep monitoring without cameras.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> ~78.6k</span>
+          <span class="stat"><span class="lab">🍴</span> ~10.4k</span>
+          <span class="stat"><span class="lab">📈</span> slowing</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Audited and debated heavily on Hacker News and Home Assistant forums due to severe implementation gaps (mock placeholders/oracles for core features).</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/ruvnet/RuView" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://news.ycombinator.com/item?id=40523455" target="_blank" rel="noopener">↗ HN Thread</a>
+          <a class="ref" href="https://community.home-assistant.io/" target="_blank" rel="noopener">↗ HA Forums</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-08 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+  <script>
+    // Click-to-expand handled inline via onclick toggling .open on each .ncard.
+  </script>
+
+</body>
+</html>
