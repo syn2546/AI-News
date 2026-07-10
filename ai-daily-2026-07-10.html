@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Daily — Friday, July 10, 2026. A daily curated digest of the top 10 AI news and the 5 trending GitHub repositories.">
+<title>AI Daily — Friday, July 10, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Friday, July 10, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI Launches GPT-5.6 Family with Three-Tier Structure (Sol, Terra, and Luna)</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>OpenAI has officially released the GPT-5.6 model family, moving away from a single monolithic release to a three-tier model structure. The family consists of the flagship model "Sol" optimized for complex agentic workflows in biology, coding, and cybersecurity, the mid-tier "Terra" offering GPT-5.5 performance at half the price, and "Luna," a high-speed, cost-efficient model. The launch follows a period of safety and cybersecurity evaluations required by U.S. government oversight frameworks.</p>
+          <div class="why"><b>Why it matters:</b> Shifting from monolithic models to pre-packaged multi-tier agentic options signals that frontier labs are optimizing for API economy, task-specific routing, and lower latency over raw parameter growth.</div>
+          <a class="ref" href="https://openai.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Meta Superintelligence Labs Releases Muse Spark 1.1 and Launches Commercial Meta Model API</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>Meta announced Muse Spark 1.1, a multimodal reasoning model engineered specifically for agentic coordination, coding, and direct computer interface interaction. Alongside the model, Meta launched its first metered, paid commercial service, the Meta Model API, priced at $1.25 per million input tokens and $4.25 per million output tokens. The model utilizes a context compaction mechanism to efficiently maintain a 1-million-token context window.</p>
+          <div class="why"><b>Why it matters:</b> Meta's entry into a commercial, paid API model represents a strategic pivot from its traditional open-source distribution to directly monetizing state-of-the-art agentic models.</div>
+          <a class="ref" href="https://meta.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>xAI Releases Grok 4.5 Co-Trained with Cursor IDE</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>xAI has launched Grok 4.5, a frontier reasoning model built on its new V9 foundation architecture featuring approximately 1.5 trillion parameters. The model was trained in direct collaboration with Cursor, utilizing real-world software development data to optimize its performance for IDE integrations and agentic coding workflows. It is available immediately through the xAI API, Cursor, and the Grok Build platform.</p>
+          <div class="why"><b>Why it matters:</b> The direct co-training between a foundation model lab and a leading developer environment establishes a new standard for vertically integrating LLMs with specialized software development workflows.</div>
+          <a class="ref" href="https://x.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Stanford Researchers Introduce Biomni, an Open-Source AI "Co-Scientist" Agent</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>Researchers at Stanford University published a foundational study in Science introducing Biomni, an open-source agentic AI system for biomedical research. Biomni integrates with a toolbox of 150 biological software packages, 60 databases, and literature retrieval tools to autonomously draft hypotheses, design experiments, and analyze data. At the time of its formal publication, the system had already been deployed across more than 10,000 academic and industrial labs.</p>
+          <div class="why"><b>Why it matters:</b> Open-source agentic architectures equipped with domain-specific toolkits are shifting AI's role from a passive research assistant to an active driver of scientific discovery.</div>
+          <a class="ref" href="https://stanford.edu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>IBM Upgrades Bob Agentic Development Platform with Multi-Agent Workflows and Cost Controls</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>IBM announced a major update to its enterprise agentic software development platform, IBM Bob, enabling the coordination of parallel subagents to handle long-horizon tasks while isolating context to reduce token consumption. The update introduces "Bobalytics" for monitoring agent contributions, real-time AI compute cost analytics, and pre-packaged workflows for legacy enterprise modernization. The platform dynamically routes tasks across models like IBM Granite, Anthropic Claude, and Mistral based on cost and capability.</p>
+          <div class="why"><b>Why it matters:</b> Enterprise dev tooling is prioritizing multi-agent orchestration and strict cost/performance governance to transform experimental coding assistants into predictable engineering platforms.</div>
+          <a class="ref" href="https://ibm.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Prime Intellect Raises $130 Million Series A to Build Open Superintelligence Stack</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>Prime Intellect closed a $130 million Series A funding round led by Radical Ventures, with participation from NVIDIA Ventures, Intel Capital, and Dell Technologies Capital, valuing the startup at $1 billion. The company provides decentralized computing power and specialized frameworks that allow enterprises to train, fine-tune, and deploy their own custom AI agents and foundation models.</p>
+          <div class="why"><b>Why it matters:</b> High-scale decentralized compute networks combined with multi-cloud routing are becoming essential alternatives for enterprises hoping to avoid dependency on major public clouds.</div>
+          <a class="ref" href="https://www.primeintellect.ai/blog/prime-intellect-series-a" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Together AI Closes $800 Million Series C to Scale Open-Source AI Infrastructure</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Silicon Valley-based "AI neocloud" provider Together AI closed an $800 million Series C funding round led by Saudi Aramco's venture arm, Aramco Ventures. The round, which includes backing from Nvidia and General Catalyst, values the startup at $8.3 billion post-money and comes as Together AI reports its annual bookings have surpassed $1.15 billion. The capital will fund a massive expansion of the company's compute capacity to support open-source AI model inference at scale.</p>
+          <div class="why"><b>Why it matters:</b> Aramco Ventures' lead role underscores the rising power of Middle Eastern sovereign wealth in anchoring Western AI infrastructure, while the massive valuation reflects the premium the market places on open-source compute alternatives.</div>
+          <a class="ref" href="https://www.businesswire.com/news/home/20260701005678/en/Together-AI-Raises-800-Million-Series-C-to-Accelerate-Open-Source-AI-Inference" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Abu Dhabi’s MGX Closes Inaugural $49 Billion AI Investment Fund</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Abu Dhabi-backed technology investment firm MGX officially closed its first fund at $49 billion in total commitments, exceeding its initial $45 billion target. The state-sponsored private investment vehicle, backed by Mubadala and G42, will target investments across the entire AI stack, focusing on semiconductors, data center infrastructure, and foundational AI labs. Before the final close, MGX had already invested in OpenAI, Anthropic, and xAI.</p>
+          <div class="why"><b>Why it matters:</b> This stands as one of the largest dedicated technology investment funds in history, signaling that the geopolitics of AI capital is shifting heavily toward Gulf state-funded entities with the scale to underwrite massive infrastructure projects.</div>
+          <a class="ref" href="https://www.mgx.ae/news/mgx-closes-inaugural-49-billion-ai-fund" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>AI Chip Startup Etched Exits Stealth with $800 Million Raised</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-30</div>
+          <p>AI hardware startup Etched officially emerged from stealth, disclosing a total of $800 million raised across multiple funding rounds, including a $500 million round that valued the company at $5 billion post-money. Backed by Stripes, Peter Thiel, and TSMC's investment affiliate, the startup has developed "Sohu," an ASIC hardwired specifically to run transformer-based AI model inference. The company announced it has already secured over $1 billion in signed customer contracts.</p>
+          <div class="why"><b>Why it matters:</b> Etched's massive capital pool and pre-sold contracts represent the most significant venture-backed challenge to Nvidia's inference monopoly, testing the thesis that specialized ASICs can out-perform general-purpose GPUs.</div>
+          <a class="ref" href="https://www.globenewswire.com/news-release/2026/06/30/3001234/en/Etched-Emerges-from-Stealth-to-Accelerate-Frontier-AI-Inference-with-Sohu.html" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>EU Council Approves 'Digital Omnibus' Amending AI Act to Postpone Deadlines</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-29</div>
+          <p>The Council of the European Union gave final approval to the "Digital Omnibus on AI," a legislative amendment that delays the compliance timeline for high-risk AI systems regulated under the EU AI Act. Under the revised schedule, the deadline for stand-alone high-risk systems (Annex III) has been pushed to December 2, 2027, while the deadline for product-embedded high-risk systems (Annex I) is extended to August 2, 2028.</p>
+          <div class="why"><b>Why it matters:</b> The delay represents a major concession to European industries and developers struggling with the complexity of compliance, giving them breathing room but deferring strict regulatory enforcement of critical AI systems.</div>
+          <a class="ref" href="https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/council-gives-final-green-light-to-digital-omnibus-postponing-ai-act-deadlines/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">Graphify-Labs/graphify</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An AI coding assistant skill that maps codebases, SQL schemas, shell scripts, docs, and media files into a queryable knowledge graph, serving as a persistent memory layer for AI agents like Claude Code, Cursor, and Gemini CLI.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 81.4k</span>
+          <span class="stat"><span class="lab">🍴</span> 8.0k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Widely adopted by developers seeking a persistent memory layer for AI coding assistants. Claims up to 71.5x token cost reduction by substituting standard vector-based RAG with Tree-sitter-based structural static analysis.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/Graphify-Labs/graphify/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://github.com/Graphify-Labs/graphify/blob/main/CHANGELOG.md" target="_blank" rel="noopener">↗ Changelog</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/jamiepine/voicebox" target="_blank" rel="noopener">jamiepine/voicebox</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, local-first AI voice synthesis and cloning studio with a DAW-like multi-track timeline and a system-wide Whisper-based dictation tool.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 40.1k</span>
+          <span class="stat"><span class="lab">🍴</span> 4.8k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Extremely strong community buzz. Widely adopted to replace paid voice cloning APIs like ElevenLabs. Includes a built-in Model Context Protocol (MCP) server for voice-native AI agents.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/jamiepine/voicebox" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/jamiepine/voicebox/releases" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://voicebox.sh" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/vxcontrol/pentagi" target="_blank" rel="noopener">vxcontrol/pentagi</a></div>
+          <span class="verdict">📈 steady growth</span>
+        </div>
+        <div class="desc">An autonomous AI agent platform that executes multi-step network penetration testing, vulnerability scanning, and automated exploitation tasks.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 19.6k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.6k</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong adoption in open-source security research. Security practitioners care because it supports local LLMs (via Ollama) for data privacy and coordinates tools like Nmap, Metasploit, and SQLMap autonomously.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/vxcontrol/pentagi" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://www.tenable.com/cve/CVE-2026-14784" target="_blank" rel="noopener">↗ CVE-2026-14784 Report</a>
+          <a class="ref" href="https://vxcontrol.com" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">VoltAgent/awesome-design-md</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A repository of structured brand design guidelines and specifications formatted specifically for LLMs to generate matching frontend UI code.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 100k</span>
+          <span class="stat"><span class="lab">🍴</span> 11.6k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Curated DESIGN.md files reverse-engineered from popular brand design systems. Massive adoption in the agentic coding community to provide design-token context for UI generation.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://getdesign.md/" target="_blank" rel="noopener">↗ Gallery Catalog</a>
+          <a class="ref" href="https://stitch.withgoogle.com/docs/design-md/specification/" target="_blank" rel="noopener">↗ Document Spec</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/stablyai/orca" target="_blank" rel="noopener">stablyai/orca</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A desktop and mobile Agent Development Environment (ADE) designed for managing, running, and orchestrating parallel fleets of coding agents.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 15.3k</span>
+          <span class="stat"><span class="lab">🍴</span> 1.1k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Runs and orchestrates parallel coding agents simultaneously using Git worktrees to prevent workspace conflicts. Backed by a desktop client and iOS mobile companion client.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/stablyai/orca" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://onorca.dev" target="_blank" rel="noopener">↗ Website</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-10 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+</body>
+</html>
