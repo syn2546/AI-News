@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Daily — Monday, July 13, 2026. A daily curated digest of the top 10 AI news and the 5 trending GitHub repositories.">
+<title>AI Daily — Monday, July 13, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Monday, July 13, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Apple Files Federal Lawsuit Against OpenAI Alleging Poaching and Trade Secret Theft</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-10</div>
+          <p>Apple has filed a federal lawsuit in the Northern District of California against OpenAI, its hardware subsidiary io Products, and former Apple employees. The complaint alleges a systematic campaign of trade secret theft to accelerate OpenAI's entry into consumer hardware, claiming OpenAI poached over 400 Apple employees, held 'show and tell' interviews with unreleased hardware parts, and that a former engineer downloaded secret files while employed by OpenAI.</p>
+          <div class="why"><b>Why it matters:</b> This lawsuit marks the total breakdown of the Apple-OpenAI partnership and threatens to disrupt OpenAI's ambitions to release physical consumer AI devices.</div>
+          <a class="ref" href="https://www.apple.com/newsroom/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>Defense AI Startup Helsing Raises $1.8 Billion Series E at $18 Billion Valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-13</div>
+          <p>Munich-based defense technology company Helsing has secured $1.8 billion in a Series E funding round, setting its post-money valuation at $18 billion. The round, which saw participation from Dragoneer, Lightspeed, Iconiq, and General Catalyst, will accelerate the deployment of Helsing's AI software and autonomous systems for partner defense forces.</p>
+          <div class="why"><b>Why it matters:</b> This record-setting round underscores the geopolitical urgency and massive capital allocation shifting towards AI-driven sovereign defense capabilities in Europe.</div>
+          <a class="ref" href="https://helsing.ai" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag funding">💰 Funding</span><h3>SambaNova Systems Closes First Part of $1 Billion Series F at $11 Billion Valuation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>SambaNova Systems closed a $1 billion Series F funding round led by General Atlantic, valuing the custom AI chip and software developer at $11 billion. Concurrently, JPMorgan Chase announced a partnership to deploy SambaNova’s SN40 and SN50 platforms to power secure on-premises enterprise AI inference.</p>
+          <div class="why"><b>Why it matters:</b> The deal provides a critical financial and commercial boost to custom hardware platforms aiming to challenge Nvidia's dominance in the enterprise AI market.</div>
+          <a class="ref" href="https://www.generalatlantic.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Google Releases LiteRT.js for Web GPU-Accelerated Browser-Based AI</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>Google has launched LiteRT.js, a high-performance JavaScript runtime designed to execute AI models directly within web browsers. Built as an evolution of TensorFlow.js, LiteRT.js leverages WebAssembly, XNNPACK, WebGPU, and the WebNN API to run PyTorch, JAX, and TensorFlow models locally on CPU, GPU, and NPU hardware.</p>
+          <div class="why"><b>Why it matters:</b> On-device browser-based runtimes reduce latency, eliminate cloud compute hosting costs, and enhance privacy, paving the way for ubiquitous web-based edge AI applications.</div>
+          <a class="ref" href="https://blog.google/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Anthropic Secures 20-Year, $19 Billion Data Center Lease with TeraWulf</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>Anthropic entered a 20-year lease agreement with infrastructure operator TeraWulf Inc. for a purpose-built 401-megawatt AI data center campus in Hawesville, Kentucky. The deal is projected to generate $19 billion in contracted revenue for TeraWulf as it transitions its sites from bitcoin mining to AI compute hosting.</p>
+          <div class="why"><b>Why it matters:</b> The multi-decade, multi-billion-dollar scale of the deal highlights the desperate scramble by leading AI labs to secure energy and physical capacity for future frontier models.</div>
+          <a class="ref" href="https://www.terawulf.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>French Competition Authority Nears NVIDIA Antitrust Charges Over CUDA Lock-In</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-09</div>
+          <p>The General Rapporteur of the French Competition Authority (Autorité de la concurrence) confirmed that its antitrust investigation into Nvidia's AI chip dominance is entering its final review phase. Investigators are focusing on Nvidia's CUDA software lock-in and strategic investments in cloud providers like CoreWeave, which could lead to formal charges and fines up to 10% of global revenue.</p>
+          <div class="why"><b>Why it matters:</b> This is the most advanced regulatory threat to Nvidia's virtual hardware monopoly, likely setting a European precedent that could catalyze US and EU enforcement.</div>
+          <a class="ref" href="https://www.autoritedelaconcurrence.fr" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Microsoft Launches $2.5 Billion 'Frontier Company' for Enterprise AI Adoption</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Microsoft officially launched 'Microsoft Frontier Company,' a new operating business unit backed by a $2.5 billion investment to help enterprise customers customize and deploy AI models. Led by Rodrigo Kede Lima, the unit plans to embed approximately 6,000 experts directly into client organizations to leverage proprietary data while maintaining strict privacy boundaries.</p>
+          <div class="why"><b>Why it matters:</b> Microsoft is moving aggressively from software licensing to high-touch services to solve the enterprise bottleneck of converting AI pilots into measurable ROI.</div>
+          <a class="ref" href="https://news.microsoft.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>MIT Researchers Unveil Auditing Technique for AI Model Safety Without Malicious Prompts</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-12</div>
+          <p>Researchers at the Massachusetts Institute of Technology (MIT) have developed a new safety auditing framework. The system tests generative AI models for malicious capabilities and security vulnerabilities without requiring the auditor to input explicit prompts containing illegal or dangerous content, improving child safety and structural compliance.</p>
+          <div class="why"><b>Why it matters:</b> Standard red-teaming requires model exposers to input harmful datasets; this method allows safety-validation without generating dangerous payloads in the auditing logs.</div>
+          <a class="ref" href="https://mit.edu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>IMF Recognizes Thailand as Top 4 Global Exporter of AI-Related Hardware</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-12</div>
+          <p>A recent International Monetary Fund (IMF) report has officially recognized Thailand as one of the world's top four exporters of AI-related hardware components, alongside Taiwan, Malaysia, and South Korea. This physical manufacturing contribution has significantly improved Thailand's mid-term export outlook.</p>
+          <div class="why"><b>Why it matters:</b> Reflects a shift in the global hardware supply chain where Southeast Asian nations capture hardware infrastructure manufacturing as demand for AI data centers and accelerators spikes.</div>
+          <a class="ref" href="https://www.imf.org" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>MIT Researchers Unveil Graph-PRefLexOR for Traceable Scientific Hypothesis Generation</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-01</div>
+          <p>Researchers from MIT have published a paper introducing a refined iteration of the Graph-PRefLexOR framework. By fine-tuning a graph-native reinforcement learning model using Group Relative Policy Optimization (GRPO), the framework structures reasoning into explicit phases, showing up to 65% improvements in scientific hypothesis traceability.</p>
+          <div class="why"><b>Why it matters:</b> The integration of symbolic graph reasoning with reinforcement learning proves that models can generate highly structured and traceable scientific hypotheses, rather than uninterpretable black-box correlations.</div>
+          <a class="ref" href="https://arxiv.org/abs/2607.00924" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">heygen-com/hyperframes</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">HyperFrames is an open-source, agent-native framework for turning standard HTML, CSS, media, and seekable animations (GSAP, Lottie, etc.) into deterministic, frame-accurate MP4/WebM videos.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 34.6k</span>
+          <span class="stat"><span class="lab">🍴</span> 3.3k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Used directly by HeyGen to power their core video composition. Notable tech companies are integrating it, including tldraw (to generate automated PR walkthrough videos) and reap (AI clipping/rendering). Designed for LLMs to easily generate videos using CSS/HTML structures.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://hyperframes.heygen.com/introduction" target="_blank" rel="noopener">↗ Docs</a>
+          <a class="ref" href="https://github.com/heygen-com/hyperframes/blob/main/ADOPTERS.md" target="_blank" rel="noopener">↗ Adopters</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/teng-lin/notebooklm-py" target="_blank" rel="noopener">teng-lin/notebooklm-py</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An unofficial Python API and CLI tool providing programmatic access to Google NotebookLM's features (including hidden capabilities) and agentic skills for Claude Code, Codex, and OpenClaw.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 17.7k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Broad real-world adoption as a grounded zero-token synthesis and memory layer for developer workflows (e.g., Claude Code, OpenClaw, Obsidian vault sync). It offloads expensive document context analysis to Google's server-side NotebookLM RAG engine.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/teng-lin/notebooklm-py" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/teng-lin/notebooklm-py/releases/tag/v0.7.3" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://github.com/teng-lin/notebooklm-py/blob/main/docs/mcp-guide.md" target="_blank" rel="noopener">↗ MCP Guide</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/InsForge/InsForge" target="_blank" rel="noopener">InsForge/InsForge</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, agent-native Backend-as-a-Service (BaaS) platform that provides relational databases (PostgreSQL), authentication, storage, edge functions, and LLM gateway tools designed specifically for AI coding agents to autonomously configure and manage backend infrastructure.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 12.2k</span>
+          <span class="stat"><span class="lab">🍴</span> 1.1k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong adoption among developers building "agent-first" workflows and "vibe coding" applications (integrating with Cursor, Windsurf, Cline, and Claude Code). Backed by Y Combinator's Spring 2026 batch.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/InsForge/InsForge" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://docs.insforge.dev/introduction" target="_blank" rel="noopener">↗ Docs</a>
+          <a class="ref" href="https://www.ycombinator.com/companies/insforge" target="_blank" rel="noopener">↗ Y Combinator Profile</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/malisper/pgrust" target="_blank" rel="noopener">malisper/pgrust</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A complete rewrite of PostgreSQL 18.3 in Rust, using AI-assisted programming to achieve 100% compatibility with the official Postgres regression suite while exploring deep database architecture changes.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 2.7k</span>
+          <span class="stat"><span class="lab">🍴</span> 77</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Achieved a milestone of passing 100% of the PostgreSQL regression tests (over 46,000 queries) in late June 2026. Explicitly labeled "not production-ready" but highly discussed on HN.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/malisper/pgrust" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://malisper.me/pgrust-rebuilding-postgres-in-rust-with-ai/" target="_blank" rel="noopener">↗ Launch Post</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">google-gemini/gemini-cli</a></div>
+          <span class="verdict">🛠️ mature & active</span>
+        </div>
+        <div class="desc">An open-source AI agent that brings Gemini models directly into the terminal, offering an interactive REPL environment with built-in tools and Model Context Protocol (MCP) support.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 106k</span>
+          <span class="stat"><span class="lab">🍴</span> 14.2k</span>
+          <span class="stat"><span class="lab">📈</span> slowing</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Immense initial adoption driven by Gemini's 1M context window. Responsiveness has slowed down as Google transitions consumer tiers to the Go-based Antigravity CLI, but still widely used by enterprise license holders.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://geminicli.com/docs/changelogs" target="_blank" rel="noopener">↗ Changelogs</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-13 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+</body>
+</html>
