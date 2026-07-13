@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Daily — Saturday, July 11, 2026. A daily curated digest of the top 10 AI news and the 5 trending GitHub repositories.">
+<title>AI Daily — Saturday, July 11, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Starbucks-inspired tokens */
+  --canvas:#f2f0eb;        /* Neutral Warm — page canvas */
+  --ceramic:#edebe9;       /* Ceramic — soft zone wash */
+  --white:#ffffff;
+  --sb-green:#006241;      /* Starbucks Green — headings */
+  --green-accent:#00754A;  /* Green Accent — CTAs/links */
+  --house-green:#1E3932;   /* House Green — dark bands/footer */
+  --green-uplift:#2b5148;  /* decorative */
+  --green-light:#d4e9e2;
+  --gold:#cba258;
+  --gold-light:#dfc49d;
+  --gold-lightest:#faf6ee;
+  --ink:rgba(0,0,0,0.87);  /* Text Black */
+  --ink-soft:rgba(0,0,0,0.58);
+  --on-dark:#ffffff;
+  --on-dark-soft:rgba(255,255,255,0.70);
+  --red:#c82014;
+  --hairline:#e7e7e7;
+  --card-radius:12px;
+  --pill:50px;
+  --card-shadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+  --nav-shadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  --font:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --track:-0.16px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  letter-spacing:var(--track);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ===== Hero ===== */
+.hero{
+  background:var(--house-green);
+  color:var(--on-dark);
+  border-radius:0 0 24px 24px;
+  box-shadow:var(--card-shadow);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 24px 56px;text-align:center}
+.hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:48px;line-height:1.1;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
+.hero .date{color:var(--on-dark-soft);font-size:17px}
+.hero .chip{
+  display:inline-block;margin-top:22px;padding:8px 20px;border-radius:var(--pill);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  font-size:14px;color:var(--on-dark-soft);font-weight:500;
+}
+.hero .chip b{color:var(--on-dark);font-weight:600}
+
+/* ===== Sections ===== */
+.section{margin-top:52px}
+.section h2{font-size:28px;font-weight:600;color:var(--sb-green);letter-spacing:var(--track);display:flex;align-items:center;gap:12px}
+.section .sub{color:var(--ink-soft);font-size:14px;margin:6px 0 22px}
+
+/* ===== News cards ===== */
+.news{display:flex;flex-direction:column;gap:14px}
+.ncard{
+  background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+  padding:18px 22px;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+}
+.ncard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.ncard:active{transform:scale(0.99)}
+.ncard .top{display:flex;align-items:flex-start;gap:14px}
+.tag{
+  flex:none;font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);
+  white-space:nowrap;letter-spacing:-0.01em;
+}
+.tag.launch{background:var(--green-light);color:var(--green-accent)}
+.tag.research{background:#dde6e2;color:var(--house-green)}
+.tag.tooling{background:#dfe7e3;color:var(--green-uplift)}
+.tag.funding{background:#cfe5da;color:var(--sb-green)}
+.tag.policy{background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light)}
+.tag.industry{background:#fbe6e4;color:var(--red)}
+.ncard h3{font-size:18px;font-weight:600;flex:1;line-height:1.4;color:var(--ink);letter-spacing:var(--track)}
+.ncard .arrow{color:var(--green-accent);flex:none;transition:.25s transform;font-size:16px;margin-top:3px}
+.ncard.open .arrow{transform:rotate(90deg)}
+.ncard .body{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(0.25,0.46,0.45,0.94);opacity:0}
+.ncard.open .body{max-height:440px;opacity:1;margin-top:14px}
+.ncard .body p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-bottom:12px}
+.ncard .why{
+  color:var(--ink);font-size:14.5px;line-height:1.6;padding:12px 16px;
+  background:var(--ceramic);border-left:3px solid var(--green-accent);border-radius:8px;margin-bottom:14px;
+}
+.ncard .why b{color:var(--sb-green);font-weight:600}
+.ncard .meta{font-size:12px;color:var(--ink-soft);margin-bottom:9px}
+.ref{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green-accent);
+  text-decoration:none;font-weight:600;border:1px solid var(--green-accent);
+  padding:7px 16px;border-radius:var(--pill);transition:all .2s ease;letter-spacing:-0.01em;
+}
+.ref:hover{background:var(--green-accent);color:var(--white)}
+.ref:active{transform:scale(0.95)}
+
+/* ===== Repo cards ===== */
+.repos{display:flex;flex-direction:column;gap:16px}
+.rcard{background:var(--white);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px 24px;transition:box-shadow .2s ease}
+.rcard:hover{box-shadow:0 2px 4px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.08)}
+.rcard .rhead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rcard .rname{font-size:18px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-0.02em}
+.rcard .rname a{color:var(--sb-green);text-decoration:none}
+.rcard .rname a:hover{color:var(--green-accent)}
+.verdict{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--pill);white-space:nowrap;
+  background:var(--gold-lightest);color:#9a7b32;border:1px solid var(--gold-light);letter-spacing:-0.01em;
+}
+.rcard .desc{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:12px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.stat{font-size:12.5px;color:var(--ink);background:var(--ceramic);padding:6px 13px;border-radius:var(--pill)}
+.stat .lab{color:var(--ink-soft)}
+.rcard .traction{
+  font-size:14px;line-height:1.6;color:var(--ink-soft);padding:13px 16px;
+  background:var(--gold-lightest);border-radius:8px;border-left:3px solid var(--gold);margin-bottom:15px;
+}
+.rrefs{display:flex;flex-wrap:wrap;gap:9px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;background:var(--ceramic);padding:1px 6px;border-radius:5px}
+
+/* ===== Footer ===== */
+footer{
+  margin-top:64px;background:var(--house-green);color:var(--on-dark-soft);
+  border-radius:24px 24px 0 0;text-align:center;padding:40px 24px;font-size:13px;line-height:1.7;
+}
+footer a{color:var(--gold);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">AI Daily</div>
+      <h1>The AI Frontier, Decoded</h1>
+      <div class="date">Saturday, July 11, 2026 · Bangkok</div>
+      <div class="chip"><b>10</b> news · <b>5</b> repos</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+  <!-- ============ NEWS ============ -->
+  <section class="section">
+    <h2>🧠 Top 10 AI News</h2>
+    <div class="sub">Tap any card to expand. Every item links to its primary source.</div>
+    <div class="news">
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>OpenAI Unveils GPT-Live Voice System with Full-Duplex Architecture</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>OpenAI announced GPT-Live, a conversational voice system utilizing a full-duplex architecture that permits simultaneous listening and speaking in ChatGPT. Unlike turn-based 'walkie-talkie' modes, the model processes real-time interruptions, emits mid-conversation conversational cues, and delegates heavy reasoning tasks to background frontier models without stalling the audio stream.</p>
+          <div class="why"><b>Why it matters:</b> Continuous full-duplex audio processing bridges the gap between text-based prompting and natural, high-bandwidth human-machine communication.</div>
+          <a class="ref" href="https://openai.com/news/" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag tooling">⚙️ Tooling</span><h3>Wiz Discovers "GhostApproval" Vulnerability in AI Coding Assistants</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-08</div>
+          <p>Cybersecurity firm Wiz disclosed 'GhostApproval,' a vulnerability affecting AI code assistants including Cursor, Amazon Q Developer, and Google Antigravity. By exploiting Unix symbolic links (symlinks) and UI misrepresentation (CWE-451) in repository configuration files, malicious repos can trick AI agents into writing to sensitive files (such as SSH keys) without the user realizing it.</p>
+          <div class="why"><b>Why it matters:</b> As AI agents gain autonomous filesystem read/write access, traditional human-in-the-loop validation prompts become vulnerable to social engineering via UI spoofing, requiring sandboxed execution environments.</div>
+          <a class="ref" href="https://www.wiz.io/blog" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>FTC Targets AI Model Manipulation with Proposed Policy on "Suppression of Accuracy"</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-07</div>
+          <p>The Federal Trade Commission (FTC) published a proposed policy statement declaring that the intentional degradation or manipulation of AI outputs for undisclosed goals violates Section 5 of the FTC Act. The proposal targets AI developers marketing their systems as objective while steering outputs, and takes aim at state-level regulations like Colorado's AI Act, arguing they may be preempted by federal law.</p>
+          <div class="why"><b>Why it matters:</b> Establishes a federal antitrust and consumer protection framework that could preempt state AI safety laws, preventing fragmented local compliance rules from fracturing the US AI market.</div>
+          <a class="ref" href="https://www.ftc.gov" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>DOJ Secures Antitrust Settlement with Willow Bridge Over Algorithmic Price-Fixing</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-06</div>
+          <p>The Department of Justice (DOJ) filed a proposed consent decree with Willow Bridge Property Company to settle civil antitrust claims regarding its use of RealPage's pricing algorithms. Willow Bridge is barred from using algorithms that pool competitors' data to set rental rates, must cease sharing sensitive pricing data, and must cooperate with the DOJ's ongoing prosecution of other landlords.</p>
+          <div class="why"><b>Why it matters:</b> Sets a clear legal precedent that using AI or automated software to coordinate market pricing constitutes illegal collusion, forcing developers to re-engineer pricing algorithms.</div>
+          <a class="ref" href="https://www.justice.gov" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Zoom Acquires AI-Native GTM Intelligence Platform Common Room to Extend Sales Stack</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-02</div>
+          <p>Zoom announced a definitive agreement to acquire Common Room, an AI-native buyer intelligence and go-to-market platform. The deal will integrate Common Room’s data unification capabilities and its 'RoomieAI' research agents into Zoom’s Revenue Accelerator platform. Financial terms were not disclosed, and the acquisition is expected to close in the upcoming weeks.</p>
+          <div class="why"><b>Why it matters:</b> Highlights a major consolidation wave where communication giants buy first-party data layers and agentic workflows to build end-to-end AI sales platforms.</div>
+          <a class="ref" href="https://www.zoom.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag launch">🚀 Launch</span><h3>Anthropic Releases Claude 5 Sonnet with Adaptive Thinking</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-06-30</div>
+          <p>Anthropic launched Claude 5 Sonnet, a highly agentic model featuring 'Adaptive Thinking' that dynamically adjusts reasoning depth based on task complexity. In a significant developer shift, the model drops support for traditional sampling parameters like temperature and top_p, forcing users to guide style and behavior solely through system prompts.</p>
+          <div class="why"><b>Why it matters:</b> The removal of hyperparameter controls signals a future where reasoning models manage their own execution paths, altering how prompt engineering and LLM routing frameworks are built.</div>
+          <a class="ref" href="https://www.anthropic.com/news/claude-5-sonnet" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag industry">🏢 Industry</span><h3>Meta Pulls AI Instagram Image Feature Following Privacy Backlash</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-11</div>
+          <p>Meta has discontinued an AI image generation feature that had launched just days prior. The feature allowed users to generate images from public Instagram accounts, but was scrapped following widespread privacy concerns and criticism from users and regulators.</p>
+          <div class="why"><b>Why it matters:</b> Public backlash over training AI models on user data is forcing consumer platforms to backtrack on AI integrations, highlighting the rising friction in user-data acquisition.</div>
+          <a class="ref" href="https://www.tbsnews.net" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Northwestern Researchers Build "Cerebellum-Inspired" Chip for Energy-Efficient AI</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-10</div>
+          <p>Researchers at Northwestern University developed a 'cerebellum-inspired' electronic device capable of identifying abnormal heart rhythms with high accuracy while using 10,000 times fewer operations than conventional AI, signaling a potential path for more energy-efficient edge computing.</p>
+          <div class="why"><b>Why it matters:</b> By mimicking biological pathways, neuromorphic hardware designs can bypass massive grid requirements, making edge AI viable for low-power medical devices.</div>
+          <a class="ref" href="https://www.northwestern.edu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag research">🔬 Research</span><h3>Independent Benchmarks Detail Grok 4.5 Strengths and Hallucination Rates</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-10</div>
+          <p>Following its launch, independent benchmarks (Artificial Analysis) placed Grok 4.5 fourth on the Intelligence Index. While the model excelled in agentic tool-use and direct IDE integration, reports noted a significant increase in its hallucination rate (54%) on strict reasoning benchmarks.</p>
+          <div class="why"><b>Why it matters:</b> Higher hallucination rates in reasoning benchmarks indicate that scaling parameter size alone does not resolve factual alignment issues, emphasizing the importance of specialized fine-tuning.</div>
+          <a class="ref" href="https://buildfastwithai.com" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+      <article class="ncard" onclick="this.classList.toggle('open')">
+        <div class="top"><span class="tag policy">🏛️ Policy</span><h3>European Commission Prepares for Full AI Act Enforcement Beginning August 2</h3><span class="arrow">›</span></div>
+        <div class="body">
+          <div class="meta">Published 2026-07-11</div>
+          <p>As of July 11, stakeholders are preparing for August 2, 2026, when the European Commission gains full enforcement powers to fine makers of the most powerful AI models for training and operational compliance. This transition comes alongside the recently approved Digital Omnibus deadlines.</p>
+          <div class="why"><b>Why it matters:</b> The entry of active enforcement powers gives the EU a mechanism to levy structural fines on global labs, marking the beginning of real-world compliance penalties.</div>
+          <a class="ref" href="https://consilium.europa.eu" target="_blank" rel="noopener">↗ Reference</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ REPOS ============ -->
+  <section class="section">
+    <h2>⭐ 5 Trending Repos</h2>
+    <div class="sub">The repos the world is most interested in today, with a candid health read.</div>
+    <div class="repos">
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/agentscope-ai/QwenPaw" target="_blank" rel="noopener">agentscope-ai/QwenPaw</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">An open-source, personal AI assistant workstation developed by the AgentScope team. Runs locally or in the cloud, connects with multiple chat apps, and features a 3-layer memory system, security sandbox execution, and a Coding Mode Web IDE.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 21.8k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.8k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Strong adoption among local LLM developers. Valued for its multi-channel connectivity, out-of-the-box local model integration (Ollama, LM Studio), and robust built-in security features. Released major v2.0.0 yesterday.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/agentscope-ai/QwenPaw" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://qwenpaw.agentscope.io/release-notes#v2.0.0" target="_blank" rel="noopener">↗ Releases</a>
+          <a class="ref" href="https://qwenpaw.agentscope.io/" target="_blank" rel="noopener">↗ Docs</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/DeusData/codebase-memory-mcp" target="_blank" rel="noopener">DeusData/codebase-memory-mcp</a></div>
+          <span class="verdict">🔥 exploding</span>
+        </div>
+        <div class="desc">A high-performance Model Context Protocol (MCP) server that indexes codebases into a persistent SQLite knowledge graph, enabling AI coding agents to run fast structural queries with significantly lower token consumption.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 29.8k</span>
+          <span class="stat"><span class="lab">🍴</span> 2.4k</span>
+          <span class="stat"><span class="lab">📈</span> rapid</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">High developer adoption in the MCP and AI agent space (Claude Code, Cursor, Zed, Aider). Proves up to 99% theoretical token savings by replacing standard vector-based RAG.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/DeusData/codebase-memory-mcp" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://github.com/DeusData/codebase-memory-mcp/releases" target="_blank" rel="noopener">↗ Releases</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/n8n-io/n8n" target="_blank" rel="noopener">n8n-io/n8n</a></div>
+          <span class="verdict">🛠️ mature & active</span>
+        </div>
+        <div class="desc">Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 1,500+ integrations.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 196k</span>
+          <span class="stat"><span class="lab">🍴</span> 59.2k</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Excellent real-world enterprise adoption (Vodafone, Delivery Hero). Highly popular for self-hosted AI orchestrations to avoid Zapier/Make SaaS usage limits. Latest release yesterday on July 10, 2026.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/n8n-io/n8n" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://n8n.io/case-studies/" target="_blank" rel="noopener">↗ Case Studies</a>
+          <a class="ref" href="https://docs.n8n.io/sustainable-use-license/" target="_blank" rel="noopener">↗ License</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">DietrichGebert/ponytail</a></div>
+          <span class="verdict">🛠️ mature & active</span>
+        </div>
+        <div class="desc">A popular open-source plugin for AI coding agents that enforces a YAGNI (You Ain't Gonna Need It) decision ladder and lean code design.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 80.4k</span>
+          <span class="stat"><span class="lab">🍴</span> 4.3k</span>
+          <span class="stat"><span class="lab">📈</span> steady</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Popular extension for AI coding environments (Claude Code, GitHub Copilot) to reduce over-engineering and code debt by prioritizing native features over third-party dependencies.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">↗ Repo</a>
+        </div>
+      </article>
+
+      <article class="rcard">
+        <div class="rhead">
+          <div class="rname"><a href="https://github.com/open-gitagent/gitagent" target="_blank" rel="noopener">open-gitagent/gitagent</a></div>
+          <span class="verdict">🧪 early/experimental</span>
+        </div>
+        <div class="desc">A universal, git-native AI agent framework and open standard (OpenGAP) where an agent's entire state (identity, rules, memory, tools, and skills) lives inside a version-controlled Git repository.</div>
+        <div class="stats">
+          <span class="stat"><span class="lab">⭐</span> 592</span>
+          <span class="stat"><span class="lab">🍴</span> 112</span>
+          <span class="stat"><span class="lab">📈</span> slowing</span>
+          <span class="stat"><span class="lab">🟢</span> active</span>
+        </div>
+        <div class="traction">Notable Show HN buzz and a community registry. Designed to integrate with Claude Code, OpenAI Agents SDK, CrewAI, and Lyzr, but real-world/production enterprise adoption is still unproven.</div>
+        <div class="rrefs">
+          <a class="ref" href="https://github.com/open-gitagent/gitagent" target="_blank" rel="noopener">↗ Repo</a>
+          <a class="ref" href="https://gitagent.sh" target="_blank" rel="noopener">↗ Website</a>
+          <a class="ref" href="https://registry.gitagent.sh" target="_blank" rel="noopener">↗ Registry</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  </div>
+
+  <footer>
+    AI Daily · generated 2026-07-11 · <a href="index.html">← archive hub</a><br>
+    Every item links to its primary source. Built by parallel research agents.
+  </footer>
+
+</body>
+</html>
