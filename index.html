@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Daily — Archive</title>
+<title>News Hub — Archive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,10 +34,20 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font);letter-sp
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 .hero{background:var(--house-green);color:var(--on-dark);border-radius:0 0 24px 24px;box-shadow:var(--card-shadow)}
-.hero-inner{max-width:var(--maxw);margin:0 auto;padding:66px 24px 54px;text-align:center}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:66px 24px 30px;text-align:center}
 .hero .kicker{font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
 .hero h1{font-size:52px;margin:16px 0 10px;font-weight:600;letter-spacing:var(--track);color:var(--on-dark)}
 .hero p{color:var(--on-dark-soft);font-size:17px;max-width:540px;margin:0 auto}
+
+.tabs{display:flex;justify-content:center;gap:10px;padding:26px 24px 34px;flex-wrap:wrap}
+.tab{
+  appearance:none;border:1.5px solid rgba(255,255,255,0.35);background:transparent;color:var(--on-dark-soft);
+  font-family:var(--font);font-size:14px;font-weight:600;letter-spacing:var(--track);
+  padding:9px 22px;border-radius:var(--pill);cursor:pointer;transition:all .18s ease;
+}
+.tab:hover{border-color:var(--gold-light);color:var(--on-dark)}
+.tab.active{background:var(--gold);border-color:var(--gold);color:var(--house-green)}
+.tab .count{font-weight:400;opacity:0.75;margin-left:5px;font-size:12px}
 
 .grid{display:flex;flex-direction:column;gap:14px;margin-top:36px}
 .dcard{
@@ -56,6 +66,12 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font);letter-sp
 .dcard .chip b{color:var(--ink);font-weight:600}
 .dcard .arrow{flex:none;color:var(--green-accent);font-size:22px}
 
+.empty{
+  margin-top:36px;text-align:center;background:var(--gold-lightest);border:1.5px dashed var(--gold-light);
+  border-radius:var(--card-radius);padding:52px 24px;color:var(--ink-soft);font-size:15px;
+}
+.empty .big{font-size:34px;margin-bottom:10px}
+
 footer{margin-top:56px;background:var(--house-green);color:var(--on-dark-soft);border-radius:24px 24px 0 0;text-align:center;padding:36px 24px;font-size:13px}
 </style>
 </head>
@@ -63,51 +79,81 @@ footer{margin-top:56px;background:var(--house-green);color:var(--on-dark-soft);b
   <header class="hero">
     <div class="hero-inner">
       <div class="kicker">Archive</div>
-      <h1>AI Daily</h1>
-      <p>Daily AI digest — top news of the day &amp; the repos the world is most interested in.</p>
+      <h1 id="hub-title">News Hub</h1>
+      <p id="hub-sub">Daily digests — AI, Thailand, and US news, each built by parallel research agents.</p>
     </div>
+    <nav class="tabs" id="tabs"></nav>
   </header>
   <div class="wrap">
     <div class="grid" id="grid"></div>
   </div>
   <footer>Built by parallel research agents · newest first</footer>
 
+<script src="data/ai.js"></script>
+<script src="data/th.js"></script>
+<script src="data/us.js"></script>
 <script>
-const DIGESTS = [
-  { date:"2026-07-13", file:"ai-daily-2026-07-13.html", topNews:"Apple Files Federal Lawsuit Against OpenAI Over Poaching and Trade Secrets; Helsing Raises $1.8B Series E at $18B Valuation", newsCount:10, repoCount:5 },
-  { date:"2026-07-11", file:"ai-daily-2026-07-11.html", topNews:"OpenAI Unveils GPT-Live Voice System with Full-Duplex Architecture; Wiz Discovers 'GhostApproval' Vulnerability in Coding Assistants", newsCount:10, repoCount:5 },
-  { date:"2026-07-10", file:"ai-daily-2026-07-10.html", topNews:"OpenAI Launches GPT-5.6 Family with Three-Tier Structure (Sol, Terra, and Luna)", newsCount:10, repoCount:5 },
-  { date:"2026-07-09", file:"ai-daily-2026-07-09.html", topNews:"OpenAI Officially Rolls Out GPT-5.6 Model Family (Sol, Terra, Luna); Mistral Releases Robostral Navigate Robotics Model", newsCount:10, repoCount:5 },
-  { date:"2026-07-08", file:"ai-daily-2026-07-08.html", topNews:"OpenAI Schedules Public Release of GPT-5.6 Sol, Terra, and Luna for July 9; Keyfactor Secures $1B Strategic Investment", newsCount:10, repoCount:5 },
-  { date:"2026-07-07", file:"ai-daily-2026-07-07.html", topNews:"Meituan Open-Sources LongCat-2.0, a 1.6-Trillion-Parameter MoE Model; Kuaishou's Kling AI Spun Off with $2B Initial Funding", newsCount:10, repoCount:5 },
-  { date:"2026-07-06", file:"ai-daily-2026-07-06.html", topNews:"UN Launches First Global Dialogue on Artificial Intelligence Governance in Geneva; Global Venture Funding Hits Record $510B in H1 2026", newsCount:10, repoCount:5 },
-  { date:"2026-07-04", file:"ai-daily-2026-07-04.html", topNews:"Anthropic Launches Claude 3.6 Opus with 4M-Token Context Window and Native Video Reasoning; Meta Introduces Llama 4-Omni Distilled", newsCount:10, repoCount:5 },
-  { date:"2026-07-02", file:"ai-daily-2026-07-02.html", topNews:"OpenAI Proposes 5% Equity Stake to U.S. Government to Ease Regulatory Pressures; NVIDIA Launches Revenue-Sharing and Credit-Support Model", newsCount:10, repoCount:5 },
-  { date:"2026-07-01", file:"ai-daily-2026-07-01.html", topNews:"Anthropic Unveils 'Claude Science' AI Research Workbench with Integrated Scientific Tools", newsCount:10, repoCount:5 },
-  { date:"2026-06-26", file:"ai-daily-2026-06-26.html", topNews:"SpaceX buys Cursor-maker Anysphere for $60B — the largest venture-backed acquisition ever", newsCount:10, repoCount:5 },
-  { date:"2026-06-27", file:"ai-daily-2026-06-27.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) — and the US government gates the launch for the first time", newsCount:10, repoCount:5 },
-  { date:"2026-06-28", file:"ai-daily-2026-06-28.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) under government-gated access; ex-Anthropic team's Mirendil lands a $200M seed", newsCount:10, repoCount:5 },
-  { date:"2026-06-30", file:"ai-daily-2026-06-30.html", topNews:"OpenAI Previews GPT-5.6 Sol with Advanced Subagent Architecture; PhysisForcing framework enforces physical consistency in robotics world models", newsCount:10, repoCount:5 },
+const SECTIONS = [
+  { key:"ai", label:"AI Daily",  sub:"Daily AI digest — top news of the day & the repos the world is most interested in." },
+  { key:"th", label:"TH News",   sub:"Daily Thailand news digest — the stories that matter at home." },
+  { key:"us", label:"US News",   sub:"Daily US news digest — the stories shaping America." },
 ];
-
 const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const DATA = window.HUB_DATA || {};
+const tabsEl = document.getElementById("tabs");
 const grid = document.getElementById("grid");
-DIGESTS.sort((a,b)=> b.date.localeCompare(a.date));
-for(const d of DIGESTS){
-  const [Y,M,D] = d.date.split("-").map(Number);
-  const a = document.createElement("a");
-  a.className = "dcard";
-  a.href = d.file;
-  a.innerHTML = `
-    <div class="date"><div class="d">${D}</div><div class="m">${MONTHS[M-1]} ${Y}</div></div>
-    <div class="mid">
-      <div class="top-news">${d.topNews}</div>
-      <span class="chip"><b>${d.newsCount}</b> news · <b>${d.repoCount}</b> repos</span>
-    </div>
-    <div class="arrow">›</div>`;
-  grid.appendChild(a);
+const subEl = document.getElementById("hub-sub");
+
+function currentKey(){
+  const h = location.hash.replace("#","");
+  return SECTIONS.some(s => s.key === h) ? h : "ai";
 }
+
+function renderTabs(active){
+  tabsEl.innerHTML = "";
+  for(const s of SECTIONS){
+    const n = (DATA[s.key] || []).length;
+    const b = document.createElement("button");
+    b.className = "tab" + (s.key === active ? " active" : "");
+    b.innerHTML = `${s.label}<span class="count">${n}</span>`;
+    b.onclick = () => { location.hash = s.key; };
+    tabsEl.appendChild(b);
+  }
+}
+
+function renderGrid(key){
+  const section = SECTIONS.find(s => s.key === key);
+  subEl.textContent = section.sub;
+  grid.innerHTML = "";
+  const items = (DATA[key] || []).slice().sort((a,b)=> b.date.localeCompare(a.date));
+  if(items.length === 0){
+    grid.innerHTML = `<div class="empty"><div class="big">🗞️</div>No digests here yet — the first ${section.label} edition is coming soon.</div>`;
+    return;
+  }
+  for(const d of items){
+    const [Y,M,D] = d.date.split("-").map(Number);
+    const chip = `<b>${d.newsCount}</b> news` + (d.repoCount ? ` · <b>${d.repoCount}</b> repos` : "");
+    const a = document.createElement("a");
+    a.className = "dcard";
+    a.href = d.file;
+    a.innerHTML = `
+      <div class="date"><div class="d">${D}</div><div class="m">${MONTHS[M-1]} ${Y}</div></div>
+      <div class="mid">
+        <div class="top-news">${d.topNews}</div>
+        <span class="chip">${chip}</span>
+      </div>
+      <div class="arrow">›</div>`;
+    grid.appendChild(a);
+  }
+}
+
+function render(){
+  const key = currentKey();
+  renderTabs(key);
+  renderGrid(key);
+}
+window.addEventListener("hashchange", render);
+render();
 </script>
 </body>
 </html>
-<!-- Build Trigger -->
