@@ -1,35 +1,35 @@
 # Deploy หมวด US News (`us/`)
 
-ข่าวสหรัฐฯ รายวัน — ยังไม่มี skill generate อัตโนมัติ (โครงพร้อมแล้ว รอสร้าง skill `us-daily`)
-เขียนเองหรือให้ agent เขียนตามข้อกำหนดนี้ได้เลย
+หมวดนี้ generate โดย skill **`us-brief`** (ติดตั้งที่ `~/.claude/skills/us-brief/SKILL.md`, สำเนาอยู่ที่ `Skills/us-brief/SKILL.md`) — สั่งรันด้วย `/us-brief` ใน Claude Code
+เนื้อหา: US Market Brief — 4 market indicators (S&P 500, Nasdaq, Dow, 10-Yr Treasury) + 5 ข่าว macro/ธุรกิจ + stakeholder statements + corporate earnings
 
 ## ไฟล์ที่ต้องเขียน (ต่อ 1 วัน)
 
 | ไฟล์ | เนื้อหา |
 |---|---|
-| `us/us-daily-YYYY-MM-DD.html` | HTML brief — 10 ข่าวเด่นสหรัฐฯ ของวัน, self-contained |
-| `us/us-daily-YYYY-MM-DD.md` | markdown copy เนื้อหาเดียวกัน |
+| `us/brief-YYYY-MM-DD.html` | HTML brief — warm-cream editorial theme (primary: Deep Navy `#1B365D`), self-contained |
+| `us/brief-YYYY-MM-DD.md` | markdown copy เนื้อหาเดียวกัน |
 
 ข้อกำหนดของไฟล์ HTML:
-- วันแรก: สร้าง CSS token system ของหมวดนี้เอง (โทนต่างจาก AI Daily และ TH News) — วันถัดไปใช้ token เดิมจากไฟล์ล่าสุดใน `us/`
-- ลิงก์กลับ hub: `href="../index.html"`
-- ทุกข่าวต้องมี reference link ไปแหล่งข่าวจริง (`target="_blank" rel="noopener"`)
+- ใช้ CSS token ตามที่กำหนดใน SKILL.md (โทนครีม/น้ำเงินเนวี — ต่างจาก TH ที่เป็นเขียวมรกต)
+- ถ้ามีลิงก์กลับ hub ต้องเป็น `href="../index.html"`
+- ทุกข่าว/statement/earnings ต้องมี reference link (`target="_blank" rel="noopener"`)
 
 ## ลงทะเบียนใน manifest
 
 Append 1 entry ลง `window.HUB_DATA.us` ในไฟล์ `data/us.js`:
 
 ```js
-{ date:"YYYY-MM-DD", file:"us/us-daily-YYYY-MM-DD.html", topNews:"<พาดหัวเด่นของวัน>", newsCount:10 },
+{ date:"YYYY-MM-DD", file:"us/brief-YYYY-MM-DD.html", topNews:"<พาดหัวเด่นของวัน>", newsCount:5 },
 ```
 
-**ไม่ต้องใส่ `repoCount`** — chip บน hub จะแสดงแค่จำนวนข่าวให้เอง
+**ไม่ต้องใส่ `repoCount`** (field นั้นของ AI Daily เท่านั้น) — chip บน hub จะแสดงแค่จำนวนข่าว
 
 ## ตรวจ + Push
 
 ```bash
 node --check /Users/syn/AI-News/data/us.js
-open /Users/syn/AI-News/index.html      # ดู tab US News
+open /Users/syn/AI-News/index.html      # ดู tab US News ว่า card วันใหม่ขึ้นและกดเปิดได้
 cd /Users/syn/AI-News && ./deploy.sh
 ```
 

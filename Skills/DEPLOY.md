@@ -44,11 +44,16 @@ AI-News/
 ## รูปแบบ entry ใน manifest (ทุกหมวดใช้ shape เดียวกัน)
 
 ```js
-{ date:"YYYY-MM-DD", file:"<หมวด>/<หมวด>-daily-YYYY-MM-DD.html", topNews:"<พาดหัวเด่นของวัน>", newsCount:10, repoCount:5 },
+// AI Daily (data/ai.js) — generate ด้วย /ai-daily
+{ date:"YYYY-MM-DD", file:"ai/ai-daily-YYYY-MM-DD.html", topNews:"<พาดหัวเด่น>", newsCount:10, repoCount:5 },
+// TH News (data/th.js) — generate ด้วย /th-brief
+{ date:"YYYY-MM-DD", file:"th/brief-YYYY-MM-DD.html", topNews:"<พาดหัวเด่น>", newsCount:5 },
+// US News (data/us.js) — generate ด้วย /us-brief
+{ date:"YYYY-MM-DD", file:"us/brief-YYYY-MM-DD.html", topNews:"<พาดหัวเด่น>", newsCount:5 },
 ```
 
 - `file` ต้องมี prefix โฟลเดอร์ (เช่น `th/...`) เพราะ path อ้างอิงจาก hub ที่ root
-- `repoCount` เป็น **optional** — ใส่เฉพาะ AI Daily; TH/US ไม่มี trending repos ให้ละไว้
+- `repoCount` เป็น **optional** — ใส่เฉพาะ AI Daily; TH/US เป็น financial brief ไม่มี trending repos ให้ละไว้
 - ตำแหน่งใน array ไม่สำคัญ — hub sort ตาม `date` ให้เอง (ใหม่สุดขึ้นก่อน)
 
 ## กติกาที่ห้ามพลาด

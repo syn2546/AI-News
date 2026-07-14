@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thailand Morning Brief — Monday, July 13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #fcf6f0;        /* FT Cream */
+    --ceramic: #f5ebe0;       /* Darker Cream Zone */
+    --white: #ffffff;
+    --primary: #0F4C3A;       /* Deep Emerald Green for TH */
+    --primary-soft: #1b634e;
+    --gold: #dfa86a;
+    --ink: #1e1e1e;
+    --ink-soft: #555555;
+    --card-radius: 6px;
+    --pill: 20px;
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Georgia', serif;
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  h1, h2 {
+    color: var(--primary);
+    font-family: var(--font-sans);
+  }
+  h1 {
+    font-size: 2.2rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--ceramic);
+    padding-bottom: 5px;
+  }
+  .indicators {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 40px;
+    font-family: var(--font-sans);
+  }
+  .indicator {
+    text-align: center;
+  }
+  .indicator-title {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+  }
+  .indicator-val {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .card {
+    background-color: var(--white);
+    border: 1px solid var(--ceramic);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--card-shadow);
+  }
+  /* News Cards */
+  .news-card { cursor: pointer; }
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .news-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+  .news-cat {
+    font-size: 0.85rem;
+    background-color: var(--ceramic);
+    padding: 3px 10px;
+    border-radius: var(--pill);
+    color: var(--ink-soft);
+    font-family: var(--font-sans);
+    white-space: nowrap;
+    margin-left: 15px;
+  }
+  .news-body {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--ceramic);
+  }
+  .news-card.expanded .news-body { display: block; }
+  
+  .why-it-matters {
+    font-style: italic;
+    color: var(--primary-soft);
+    margin-bottom: 10px;
+  }
+  .reference {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  .reference a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .reference a:hover { text-decoration: underline; }
+  
+  /* Statement Cards */
+  .stmt-person {
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  .stmt-date {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-family: var(--font-sans);
+    margin-bottom: 15px;
+  }
+  .stmt-message { margin-bottom: 15px; }
+  .stmt-impact {
+    background-color: var(--ceramic);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Earnings Cards */
+  .earn-company {
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  .earn-period {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-family: var(--font-sans);
+    margin-bottom: 15px;
+  }
+  .earn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-family: var(--font-sans);
+  }
+  .earn-metric {
+    background-color: var(--ceramic);
+    padding: 10px;
+    border-radius: 4px;
+  }
+  .earn-metric-title {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .earn-metric-val {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .earn-takeaways {
+    margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Thailand Morning Brief <br><span style="font-size: 1.2rem; color: var(--ink-soft); font-weight: normal;">Monday, July 13, 2026</span></h1>
+
+  <!-- Market Indicators -->
+  <div class="indicators">
+    <div class="indicator">
+      <div class="indicator-title">SET Index</div>
+      <div class="indicator-val">1,624.65 (+0.19%)</div>
+    </div>
+    <div class="indicator">
+      <div class="indicator-title">USD/THB</div>
+      <div class="indicator-val">33.36 THB</div>
+    </div>
+    <div class="indicator">
+      <div class="indicator-title">Gold Price</div>
+      <div class="indicator-val">64,150.00 THB</div>
+    </div>
+  </div>
+
+  <!-- Top 5 Local News -->
+  <h2>📰 Top 5 Financial News</h2>
+  
+  <div class="card news-card" onclick="this.classList.toggle('expanded')">
+    <div class="news-header">
+      <h3 class="news-title">BOT Maintains 2026 GDP Forecast but Warns on Long-Term Potential</h3>
+      <span class="news-cat">🏛️ Macro & Policy</span>
+    </div>
+    <div class="news-body">
+      <p>The Bank of Thailand maintained its 2026 GDP growth forecast at 2.3%, amidst global uncertainties. However, BOT Governor Vitai Ratanakorn cautioned that structural challenges have lowered the nation's long-term potential growth rate from 5% to 2.7%.</p>
+      <div class="why-it-matters"><strong>Why it matters:</strong> Highlights significant structural headwinds in the Thai economy and signals that accommodative monetary policy will likely remain in place.</div>
+      <div class="reference"><a href="https://www.nationthailand.com/" target="_blank">↗ Reference</a></div>
+    </div>
+  </div>
+
+  <div class="card news-card" onclick="this.classList.toggle('expanded')">
+    <div class="news-header">
+      <h3 class="news-title">Thailand's AI Hardware Export Boom Faces Concentration Risks</h3>
+      <span class="news-cat">🏛️ Macro & Policy</span>
+    </div>
+    <div class="news-body">
+      <p>Thailand has emerged as a top global exporter of AI-related hardware, drawing government efforts to position the country as a regional semiconductor hub. However, the BOT has warned that this export growth is highly concentrated in the tech sector, while traditional export industries are stagnating.</p>
+      <div class="why-it-matters"><strong>Why it matters:</strong> Exposes a widening divide in the export sector, raising concerns about the health and competitiveness of traditional manufacturing industries.</div>
+      <div class="reference"><a href="https://www.nationthailand.com/" target="_blank">↗ Reference</a></div>
+    </div>
+  </div>
+
+  <div class="card news-card" onclick="this.classList.toggle('expanded')">
+    <div class="news-header">
+      <h3 class="news-title">SET Index Shows Resilience Amidst Global Tech Selloff</h3>
+      <span class="news-cat">💰 Markets</span>
+    </div>
+    <div class="news-body">
+      <p>Despite a global selloff in tech and semiconductor stocks impacting regional markets like the Nikkei and Kospi, the SET Index closed higher. Positive developments in domestic sectors, such as media and mass transit, supported local equities.</p>
+      <div class="why-it-matters"><strong>Why it matters:</strong> Demonstrates the defensive nature of the Thai market, which is insulated from global tech cyclicals due to its reliance on domestic-oriented sectors.</div>
+      <div class="reference"><a href="https://www.kaohooninternational.com/" target="_blank">↗ Reference</a></div>
+    </div>
+  </div>
+
+  <div class="card news-card" onclick="this.classList.toggle('expanded')">
+    <div class="news-header">
+      <h3 class="news-title">FY2027 National Budget Faces Scrutiny Over Long-Term Growth Impact</h3>
+      <span class="news-cat">🏛️ Macro & Policy</span>
+    </div>
+    <div class="news-body">
+      <p>The FY2027 draft national budget is facing intense scrutiny over its capacity to stimulate long-term economic growth versus merely offering short-term relief. Public debt currently stands at 66.82% of GDP, which remains below the 70% statutory ceiling.</p>
+      <div class="why-it-matters"><strong>Why it matters:</strong> Government spending efficiency is under the microscope, which is critical given the limited fiscal space and the pressing need to address structural economic weaknesses.</div>
+      <div class="reference"><a href="https://thestandard.co/" target="_blank">↗ Reference</a></div>
+    </div>
+  </div>
+
+  <div class="card news-card" onclick="this.classList.toggle('expanded')">
+    <div class="news-header">
+      <h3 class="news-title">Thailand and Singapore Advance Asean Power Grid Upgrade</h3>
+      <span class="news-cat">🏢 Corporate & Business</span>
+    </div>
+    <div class="news-body">
+      <p>Prime Minister Anutin Charnvirakul and Singaporean officials are moving forward with plans to upgrade the Asean Power Grid. The cross-border initiative aims to enhance regional energy security and boost connectivity across Southeast Asia.</p>
+      <div class="why-it-matters"><strong>Why it matters:</strong> Improved regional energy infrastructure could lower long-term power costs and increase the attractiveness of Thailand for foreign direct investment.</div>
+      <div class="reference"><a href="https://www.thestar.com.my/" target="_blank">↗ Reference</a></div>
+    </div>
+  </div>
+
+  <!-- Stakeholder Statements -->
+  <h2>🎙️ Stakeholder Statements</h2>
+
+  <div class="card">
+    <div class="stmt-person">Vitai Ratanakorn, Governor of the Bank of Thailand</div>
+    <div class="stmt-date">July 11, 2026</div>
+    <div class="stmt-message">Governor Vitai announced new measures to combat the "grey economy," requiring individuals depositing 5 million baht or more in cash to disclose their source of funds starting in Q4 2026. He also warned that Thailand is "missing the boat" on the global AI boom, emphasizing that the country's slow economic growth (forecasted at 2.3%) is constrained by deep-rooted structural problems rather than issues that can be fixed with short-term interest rate cuts.</div>
+    <div class="stmt-impact"><strong>Impact:</strong> This signals a major tightening of financial compliance for high-net-worth individuals and businesses, while reinforcing the central bank's reluctance to use monetary easing (with rates already at 1.00%) for structural challenges.</div>
+    <div class="reference"><a href="https://www.nationthailand.com/" target="_blank">↗ Reference</a></div>
+  </div>
+
+  <div class="card">
+    <div class="stmt-person">Anutin Charnvirakul, Prime Minister</div>
+    <div class="stmt-date">July 13, 2026</div>
+    <div class="stmt-message">Following talks with Singapore's Foreign Minister, Prime Minister Anutin emphasized the need to accelerate the ASEAN Power Grid project to boost regional energy security and connectivity. Earlier in the week, he publicly instructed the Energy Minister to implement measures to reduce domestic retail pump prices, citing recent declines in global oil prices.</div>
+    <div class="stmt-impact"><strong>Impact:</strong> His statements signal a dual strategy of attempting to provide immediate cost-of-living relief to consumers while strategically positioning Thailand as a central player in Southeast Asian energy infrastructure integration.</div>
+    <div class="reference"><a href="https://www.thaienquirer.com/" target="_blank">↗ Reference</a></div>
+  </div>
+
+  <div class="card">
+    <div class="stmt-person">Executive Leadership, Asia Era One Consortium (CP Group-led)</div>
+    <div class="stmt-date">July 6, 2026</div>
+    <div class="stmt-message">The CP Group-led consortium submitted a formal letter to the State Railway of Thailand requesting the termination of the three-airport high-speed rail joint investment contract, citing an inability to secure Board of Investment (BOI) certification. The group subsequently clarified that the move was a necessary procedural step to preserve their contractual rights amid project constraints, rather than an immediate or unilateral withdrawal.</div>
+    <div class="stmt-impact"><strong>Impact:</strong> This highlights severe regulatory and financial bottlenecks in Thailand's flagship megaprojects, threatening to stall the Eastern Economic Corridor (EEC) development timeline and potentially dampening overall foreign investor confidence.</div>
+    <div class="reference"><a href="https://www.bangkokpost.com/" target="_blank">↗ Reference</a></div>
+  </div>
+
+  <!-- Corporate Earnings -->
+  <h2>📈 Corporate Earnings</h2>
+
+  <div class="card">
+    <div class="earn-company">PTT Public Company Limited (SET: PTT)</div>
+    <div class="earn-period">Q1 2026</div>
+    <div class="earn-grid">
+      <div class="earn-metric">
+        <div class="earn-metric-title">Revenue</div>
+        <div class="earn-metric-val">718.7 Billion THB (+2.6% YoY)</div>
+      </div>
+      <div class="earn-metric">
+        <div class="earn-metric-title">Net Profit</div>
+        <div class="earn-metric-val">25.7 Billion THB (+10.4% YoY)</div>
+      </div>
+    </div>
+    <div class="earn-takeaways"><strong>Key Takeaways:</strong> PTT delivered strong bottom-line growth despite global market volatility and Middle East geopolitical tensions impacting energy supply. The solid net profit increase reflects resilient operational efficiency and stable core businesses.</div>
+    <div class="reference"><a href="https://www.pttplc.com" target="_blank">↗ Reference</a></div>
+  </div>
+
+  <div class="card">
+    <div class="earn-company">SCB X Public Company Limited (SET: SCB)</div>
+    <div class="earn-period">Q1 2026</div>
+    <div class="earn-grid">
+      <div class="earn-metric">
+        <div class="earn-metric-title">Revenue</div>
+        <div class="earn-metric-val">39.3 Billion THB</div>
+      </div>
+      <div class="earn-metric">
+        <div class="earn-metric-title">Net Profit</div>
+        <div class="earn-metric-val">10.2 Billion THB (-18.5% YoY)</div>
+      </div>
+    </div>
+    <div class="earn-takeaways"><strong>Key Takeaways:</strong> The profit decline was primarily driven by a 13.7% YoY drop in net interest income due to NIM compression from multiple policy rate cuts. However, fee income grew strongly by 17.7% YoY, and asset quality remained sound with the NPL ratio improving to 3.23%.</div>
+    <div class="reference"><a href="https://www.scbx.com" target="_blank">↗ Reference</a></div>
+  </div>
+
+  <div class="card">
+    <div class="earn-company">CP ALL Public Company Limited (SET: CPALL)</div>
+    <div class="earn-period">Q1 2026</div>
+    <div class="earn-grid">
+      <div class="earn-metric">
+        <div class="earn-metric-title">Revenue</div>
+        <div class="earn-metric-val">267.7 Billion THB (+5.8% YoY)</div>
+      </div>
+      <div class="earn-metric">
+        <div class="earn-metric-title">Net Profit</div>
+        <div class="earn-metric-val">9.1 Billion THB (+20.2% YoY)</div>
+      </div>
+    </div>
+    <div class="earn-takeaways"><strong>Key Takeaways:</strong> Top-line growth was supported by increased sales and services revenue across its convenience store network. The impressive 20% surge in net profit demonstrates robust consumer spending momentum and effective cost management.</div>
+    <div class="reference"><a href="https://www.cpall.co.th" target="_blank">↗ Reference</a></div>
+  </div>
+
+</div>
+</body>
+</html>

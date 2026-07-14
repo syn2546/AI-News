@@ -13,7 +13,7 @@ allowed-tools:
 
 # Thailand Morning Brief — Orchestration Instructions
 
-Produce a daily financial brief for Thailand: **3 market indicators** (SET Index, USD/THB, Gold), the **5 most important local business/economic news items**, **3 key stakeholder statements/interviews** (Headhunter), and **3 major corporate earnings/financial results** (Earnings Tracker). Data is gathered by three parallel sub-agents, then rendered into a cream-editorial HTML brief and a markdown copy, both saved under `/Users/syn/Financial-News/thailand/`. Language: **English**. Every news item, statement, and earnings report carries a **reference link** — this is a hard requirement.
+Produce a daily financial brief for Thailand: **3 market indicators** (SET Index, USD/THB, Gold), the **5 most important local business/economic news items**, **3 key stakeholder statements/interviews** (Headhunter), and **3 major corporate earnings/financial results** (Earnings Tracker). Data is gathered by three parallel sub-agents, then rendered into a cream-editorial HTML brief and a markdown copy, both saved under `/Users/syn/AI-News/th/`. Each day is registered in the multi-section hub (`/Users/syn/AI-News/index.html`, tabs AI / TH / US) via the manifest `data/th.js` — never edit `index.html` itself. Language: **English**. Every news item, statement, and earnings report carries a **reference link** — this is a hard requirement.
 
 ---
 
@@ -109,7 +109,7 @@ RETURN — 3 items, clean list:
 
 ## Step 3 — Build the HTML Brief
 
-Write `/Users/syn/Financial-News/thailand/daily/brief-[DATE].html` — a self-contained warm-cream editorial theme page.
+Write `/Users/syn/AI-News/th/brief-[DATE].html` — a self-contained warm-cream editorial theme page. Any back-to-archive link must point to `../index.html` (the brief lives one folder below the hub).
 - CSS variables:
   ```css
   :root {
@@ -143,14 +143,16 @@ Write `/Users/syn/Financial-News/thailand/daily/brief-[DATE].html` — a self-co
 
 ## Step 4 — Register in the Archive Hub
 
-Update `/Users/syn/Financial-News/thailand/index.html` by prepending one `DIGESTS` object:
-`{ date:"YYYY-MM-DD", file:"daily/brief-YYYY-MM-DD.html", topNews:"<headline of top news>" }`
+Append **one** object to the `window.HUB_DATA.th` array in `/Users/syn/AI-News/data/th.js` (position doesn't matter — the hub sorts by date):
+`{ date:"YYYY-MM-DD", file:"th/brief-YYYY-MM-DD.html", topNews:"<headline of top news>", newsCount:5 },`
+
+Note the `th/` prefix on `file` — paths are relative to the hub at the repo root. Do **not** add `repoCount` (that field is AI Daily-only) and do **not** touch `index.html`.
 
 ---
 
 ## Step 5 — Save Markdown Copy
 
-Write `/Users/syn/Financial-News/thailand/daily/brief-[DATE].md`:
+Write `/Users/syn/AI-News/th/brief-[DATE].md`:
 ```markdown
 # Thailand Morning Brief — [DATE_LABEL]
 
@@ -185,11 +187,13 @@ Write `/Users/syn/Financial-News/thailand/daily/brief-[DATE].md`:
 
 ## Step 6 — Deploy & Report
 
-1. Run the local deployment:
+1. Verify before pushing: `node --check /Users/syn/AI-News/data/th.js`, then open `/Users/syn/AI-News/index.html` and confirm the new card appears under the **TH News** tab and opens.
+2. Run the deployment (shared repo-level script):
    ```bash
-   /Users/syn/Financial-News/thailand/deploy.sh
+   cd /Users/syn/AI-News && ./deploy.sh
    ```
-2. Print a short summary in chat containing:
+   Live check after ~30-60s: `https://syn2546.github.io/AI-News/#th`
+3. Print a short summary in chat containing:
    - Date
    - Top indicators
    - Top news headlines

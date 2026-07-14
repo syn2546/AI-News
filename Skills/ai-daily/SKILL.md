@@ -13,7 +13,7 @@ allowed-tools:
 
 # AI Daily — News + Trending Repos Digest (Multi-Agent)
 
-Produce a daily AI digest: the **10 best AI news of the day** and the **5 GitHub repos the world is most interested in** (AI-first, one standout non-AI repo allowed). Data is gathered by **parallel sub-agents**, then rendered into an **interactive HTML brief** (own archive hub) and a **markdown copy**, both saved to `/Users/syn/AI-News/`. Language: **English**. Every news item and every repo carries a **reference link** — this is a hard requirement.
+Produce a daily AI digest: the **10 best AI news of the day** and the **5 GitHub repos the world is most interested in** (AI-first, one standout non-AI repo allowed). Data is gathered by **parallel sub-agents**, then rendered into an **interactive HTML brief** and a **markdown copy**, both saved to `/Users/syn/AI-News/ai/`. The archive hub (`/Users/syn/AI-News/index.html`) is a multi-section page (AI / TH / US tabs); this skill registers each day in the AI section's manifest `data/ai.js` — never edit `index.html`. Language: **English**. Every news item and every repo carries a **reference link** — this is a hard requirement.
 
 ---
 
@@ -29,7 +29,7 @@ Pass `[DATE]` into every agent prompt below.
 
 ## Step 2 — Phase A: Discovery Agents
 
-**First, build the recent-repo exclusion list.** Glob `/Users/syn/AI-News/ai-daily-*.html` (or the `.md` copies), take the **last 7 dated files**, and extract every repo name already featured (the `name:"owner/repo"` entries / `### owner/repo` headings). Collect them into a comma-separated list and substitute it for `[RECENT_REPOS]` in Agent 3's prompt below. If no prior files exist, use `[RECENT_REPOS]` = `none`.
+**First, build the recent-repo exclusion list.** Glob `/Users/syn/AI-News/ai/ai-daily-*.html` (or the `.md` copies), take the **last 7 dated files**, and extract every repo name already featured (the `name:"owner/repo"` entries / `### owner/repo` headings). Collect them into a comma-separated list and substitute it for `[RECENT_REPOS]` in Agent 3's prompt below. If no prior files exist, use `[RECENT_REPOS]` = `none`.
 
 **Then launch all 3 agents in a single response so they run in parallel.** Use the `general-purpose` subagent type. Each agent must return structured output **with a source URL for every item**.
 
@@ -156,7 +156,7 @@ RETURN:
 
 ## Step 4 — Build the Per-Day HTML Brief
 
-Write `/Users/syn/AI-News/ai-daily-[DATE].html` — a **self-contained** dark-theme page. If a prior `/Users/syn/AI-News/ai-daily-*.html` exists, read the most recent one first and reuse its exact CSS token system (the `:root` variables, card grid, hero) for visual consistency; otherwise build a fresh dark-theme token system. Then build two sections:
+Write `/Users/syn/AI-News/ai/ai-daily-[DATE].html` — a **self-contained** dark-theme page. If a prior `/Users/syn/AI-News/ai/ai-daily-*.html` exists, read the most recent one first and reuse its exact CSS token system (the `:root` variables, card grid, hero) for visual consistency; otherwise build a fresh dark-theme token system. Any back-to-archive link must point to `../index.html` (the daily page lives one folder below the hub). Then build two sections:
 
 **🧠 Top 10 AI News** — click-to-expand cards. Collapsed: impact-tag chip + headline. Expanded: summary + *why it matters* + a `↗ Reference` link **directly below**, `target="_blank" rel="noopener"`.
 
@@ -175,24 +175,24 @@ Use a small self-contained `<script>` for click-to-expand (toggle a class on the
 
 ## Step 5 — Register in the Archive Hub
 
-File: `/Users/syn/AI-News/index.html`.
+File: `/Users/syn/AI-News/data/ai.js` — the AI section's manifest, loaded by the multi-section hub (`index.html`, tabs AI / TH / US). **Never edit `index.html` itself.**
 
-- **First run (file doesn't exist):** create a clean archive-hub page — title **"AI Daily"**, English subtitle, and **replace the sentiment ring** with a small **chip** reading `[N] news · [M] repos`. Rename the `BRIEFS` array to `DIGESTS` with objects:
-  `{ date:"YYYY-MM-DD", file:"ai-daily-YYYY-MM-DD.html", topNews:"<top headline teaser>", newsCount:10, repoCount:5 }`
-  Update the render JS to read these fields (drop sentiment color logic; the accent bar can use `--blue`).
-- **Every run:** append **one** `DIGESTS` object for today — do **not** rebuild the hub. The JS auto-sorts newest-first and auto-counts.
+Append **one** object to the `window.HUB_DATA.ai` array (position doesn't matter — the hub sorts by date):
+  `{ date:"YYYY-MM-DD", file:"ai/ai-daily-YYYY-MM-DD.html", newsCount:10, repoCount:5, topNews:"<top headline teaser>" }`
 
-Create the `/Users/syn/AI-News/` folder first if missing:
+Note the `ai/` prefix on `file` — paths are relative to the hub at the repo root.
+
+Create the folder first if missing:
 ```bash
-mkdir -p /Users/syn/AI-News
+mkdir -p /Users/syn/AI-News/ai
 ```
 
 ---
 
 ## Step 6 — Save Markdown Copy
 
-1. Ensure folder exists: `/Users/syn/AI-News/` (create if missing).
-2. Write `/Users/syn/AI-News/ai-daily-[DATE].md`:
+1. Ensure folder exists: `/Users/syn/AI-News/ai/` (create if missing).
+2. Write `/Users/syn/AI-News/ai/ai-daily-[DATE].md`:
 
 ```markdown
 # AI Daily — [DATE_LABEL]
@@ -228,18 +228,7 @@ Print a short summary:
 - Date
 - Top 3 news headlines
 - The 5 repo names with their verdict badges
-- The two output paths: the HTML file and the markdown note (both under `/Users/syn/AI-News/`)
-- A confirmation that the deployment to GitHub Pages was completed successfully.
-
----
-
-## Step 8 — Deploy to GitHub Pages (Auto-Deploy)
-
-**Immediately after saving the HTML, Markdown, and updating index.html**, execute the following command in `/Users/syn/AI-News/` to deploy the new files to GitHub:
-```bash
-./deploy.sh
-```
-Ensure this runs successfully to publish the new briefing to the live site at `https://syn2546.github.io/AI-News/`.
+- The two output paths: the HTML file and the markdown note (both under `/Users/syn/AI-News/ai/`)
 
 ---
 
@@ -248,5 +237,5 @@ Ensure this runs successfully to publish the new briefing to the live site at `h
 - **References are mandatory** for every news item and every repo, in both outputs.
 - Don't invent news, repos, or stats. Skip undated/stale items. If a stat is unclear, say so.
 - English content throughout.
-- Don't rebuild the hub on later runs — append one `DIGESTS` entry.
+- Don't touch `index.html` — register the day by appending one entry to `data/ai.js`.
 - Keep it self-contained: the HTML uses relative paths and inline CSS/JS, working by double-click and liftable to GitHub Pages later.
