@@ -2,6 +2,7 @@
 // To add a day: append ONE object to this array. Do not edit index.html.
 window.HUB_DATA = window.HUB_DATA || {};
 window.HUB_DATA.ai = [
+  { date:"2026-07-16", file:"ai/ai-daily-2026-07-16.html", topNews:"Thinking Machines releases Inkling, a trillion-parameter open multimodal model", newsCount:10, repoCount:5 },
   { date:"2026-07-15", file:"ai/ai-daily-2026-07-15.html", topNews:"Mistral Introduces Robostral Navigate, a Single-Camera AI Navigation Model", newsCount:10, repoCount:5 },
   { date:"2026-07-14", file:"ai/ai-daily-2026-07-14.html", topNews:"Apple–OpenAI Trade-Secrets Fight Dominates the Day as Anthropic Expands Claude Pricing in India", newsCount:10, repoCount:5 },
   { date:"2026-07-13", file:"ai/ai-daily-2026-07-13.html", topNews:"Apple Files Federal Lawsuit Against OpenAI Over Poaching and Trade Secrets; Helsing Raises $1.8B Series E at $18B Valuation", newsCount:10, repoCount:5 },
