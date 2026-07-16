@@ -3,4 +3,5 @@
 // { date:"2026-07-14", file:"us/brief-2026-07-14.html", topNews:"...", newsCount:5 },
 window.HUB_DATA = window.HUB_DATA || {};
 window.HUB_DATA.us = [
+  { date:"2026-07-16", file:"us/us-daily-2026-07-16.html", topNews:"U.S. producer prices fall 0.3% in June as energy costs retreat", newsCount:10 },
 ];
