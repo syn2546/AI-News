@@ -19,4 +19,5 @@ window.HUB_DATA.ai = [
   { date:"2026-06-28", file:"ai/ai-daily-2026-06-28.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) under government-gated access; ex-Anthropic team's Mirendil lands a $200M seed", newsCount:10, repoCount:5 },
   { date:"2026-06-27", file:"ai/ai-daily-2026-06-27.html", topNews:"OpenAI previews GPT-5.6 (Sol, Terra, Luna) — and the US government gates the launch for the first time", newsCount:10, repoCount:5 },
   { date:"2026-06-26", file:"ai/ai-daily-2026-06-26.html", topNews:"SpaceX buys Cursor-maker Anysphere for $60B — the largest venture-backed acquisition ever", newsCount:10, repoCount:5 },
+  { date:"2026-07-17", file:"ai/ai-daily-2026-07-17.html", topNews:"Mistral introduces Robostral Navigate for single-camera robot navigation", newsCount:10, repoCount:5 },
 ];
